@@ -1,3 +1,9 @@
+/* TODO 
+ - how many API routes do we need
+ - what parts of the application do we not want to expose?
+
+*/
+
 var express = require('express');
 var router = express.Router();
 
