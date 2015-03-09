@@ -5,11 +5,11 @@ var meetingSchema = ({
 	name: String,
 	admin: String,
 	description: String,
-	date: Date,
-	participants: [String]
+	date: Number,
+	participants: String
 });
 
-module.exports = meetingSchema;
+module.exports = mongoose.model('Meeting', meetingSchema);
 
 /*
 TODO

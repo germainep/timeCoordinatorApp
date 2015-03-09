@@ -6,6 +6,7 @@
 
 var express = require('express');
 var router = express.Router();
+var meetings = require('../controllers/meetings');
 
 // API routes
 router.get('/', function(req, res, next) {
@@ -38,10 +39,7 @@ router.route('/users/:user_id')
 	});
 
 router.route('/meetings')
-	.post(function(req, res) {
-		// create a new meeting object
-		res.send("create a new meeting object.");
-	})
+	.post(meetings.create)
 	.get(function(req, res) {
 		// return a list of meetings (filterable?)
 		res.send("return a list of meetings.");
