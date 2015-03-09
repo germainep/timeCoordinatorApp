@@ -17,7 +17,8 @@ router.get('/', function(req, res, next) {
 //	========================
 router.route('/meetings/:meeting_id')
 	.get(meetings.read)
-	.put(meetings.update);
+	.put(meetings.update)
+	.delete(meetings.destroy);
 
 router.route('/meetings')
 	.post(meetings.create)
