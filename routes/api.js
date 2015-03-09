@@ -20,11 +20,7 @@ router.route('/meetings/:meeting_id')
 		var meeting = req.params.meeting_id;
 		res.send("respond with the meeting object for "+meeting);
 	})
-	.put(function(req, res) {
-		// modify an existing meeting
-		var meeting = req.params.meeting_id;
-		res.send("modify an existing meeting "+meeting);
-	});
+	.put(meetings.update);
 
 router.route('/users/:user_id')
 	.get(function(req, res) {

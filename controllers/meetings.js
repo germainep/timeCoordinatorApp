@@ -10,6 +10,7 @@ Properly configure controller
  */
 var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
+var _ = require('lodash');
 
 /**
  * Create a meeting
@@ -39,6 +40,24 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
 	res.json(req.meeting);
+};
+
+exports.update = function(req, res) {
+	// update the meeting object
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+		if (err) {
+			res.send(404);
+		}
+		meeting = _.extend(meeting, req.body);
+		meeting.save(function(err) {
+			if (err) {
+				return res.status(400);
+			} 
+			res.json(meeting);
+			
+		});
+	});
+	
 };
 
 // authentication to see meetings?
