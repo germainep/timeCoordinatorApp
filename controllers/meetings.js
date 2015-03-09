@@ -10,6 +10,7 @@ Properly configure controller
  */
 var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
+var _ = require('lodash');
 
 /**
  * Create a meeting
@@ -38,7 +39,51 @@ exports.create = function(req, res) {
  * Show the current meeting
  */
 exports.read = function(req, res) {
-	res.json(req.meeting);
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+		if (err) {
+			res.send(404)
+		}
+		res.json(meeting);
+	})
 };
+
+// Can also use findByIdAndUpdate  ... 
+exports.update = function(req, res) {
+	// update the meeting object
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+		if (err) {
+			res.send(404);
+		}
+		meeting = _.extend(meeting, req.body);
+		meeting.save(function(err) {
+			if (err) {
+				return res.status(400);
+			} 
+			res.json(meeting);
+			
+		});
+	});
+	
+};
+
+exports.list = function(req, res) {
+	Meeting.find(function(err, meetings) {
+		if (err) {
+			res.send(404);
+		}
+		res.json(meetings);
+	})
+};
+
+exports.destroy = function(req, res) {
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+		meeting.remove(function(err) {
+			if (err) {
+				res.send(500);
+			}
+			res.send("Meeting with id: "+meeting._id+" is removed.");
+		});
+	});
+}
 
 // authentication to see meetings?
