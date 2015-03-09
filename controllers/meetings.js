@@ -39,7 +39,12 @@ exports.create = function(req, res) {
  * Show the current meeting
  */
 exports.read = function(req, res) {
-	res.json(req.meeting);
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+		if (err) {
+			res.send(404)
+		}
+		res.json(meeting);
+	})
 };
 
 exports.update = function(req, res) {

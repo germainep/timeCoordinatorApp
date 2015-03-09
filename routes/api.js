@@ -15,11 +15,7 @@ router.get('/', function(req, res, next) {
 
 
 router.route('/meetings/:meeting_id')
-	.get(function(req, res) {
-		// respond with the meeting object
-		var meeting = req.params.meeting_id;
-		res.send("respond with the meeting object for "+meeting);
-	})
+	.get(meetings.read)
 	.put(meetings.update);
 
 router.route('/users/:user_id')
