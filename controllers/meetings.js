@@ -14,18 +14,12 @@ var _ = require('lodash');
 
 /**
  * Create a meeting
- 	This will also save the user field to match the user who created the meeting.
+ 	This will also save the admin field to match the user who created the meeting.
  */
 exports.create = function(req, res) {
-	var meeting = new Meeting({
-		name: req.body.name,
-		admin: req.user,
-		description: req.body.description,
-		date: Date.now(),
-		participants: req.body.participants
-
-	});
-
+	var meeting = new Meeting({});
+	meeting = _.extend(meeting, req.body);
+	meeting.admin = "This will eventually save the user id of the creator.";
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
