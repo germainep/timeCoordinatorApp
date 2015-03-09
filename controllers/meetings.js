@@ -65,4 +65,13 @@ exports.update = function(req, res) {
 	
 };
 
+exports.list = function(req, res) {
+	Meeting.find(function(err, meetings) {
+		if (err) {
+			res.send(404);
+		}
+		res.json(meetings);
+	})
+};
+
 // authentication to see meetings?

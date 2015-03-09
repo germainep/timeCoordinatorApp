@@ -13,10 +13,18 @@ router.get('/', function(req, res, next) {
   console.log("access API route.");
 });
 
-
+// 		MEETINGS ROUTES
+//	========================
 router.route('/meetings/:meeting_id')
 	.get(meetings.read)
 	.put(meetings.update);
+
+router.route('/meetings')
+	.post(meetings.create)
+	.get(meetings.list);
+
+// 		USERS ROUTES
+//	========================
 
 router.route('/users/:user_id')
 	.get(function(req, res) {
@@ -29,12 +37,5 @@ router.route('/users/:user_id')
 		var user = req.params.user_id;
 		res.send("user "+user+" modified.");
 	});
-
-router.route('/meetings')
-	.post(meetings.create)
-	.get(function(req, res) {
-		// return a list of meetings (filterable?)
-		res.send("return a list of meetings.");
-	})
 
 module.exports = router;
