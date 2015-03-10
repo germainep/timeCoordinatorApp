@@ -93,12 +93,12 @@ input[type=password] {
 label[for=remember]{
  	color:white;
   display:inline-block;
-  padding-bottom:0;
+  padding-bottom:20;
 }
 
 input[type=checkbox] {
  	display:inline-block;
-  vertical-align:top;
+  vertical-align:bottom;
 }
 
 .p-container {
