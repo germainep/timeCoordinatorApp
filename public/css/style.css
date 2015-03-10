@@ -8,7 +8,7 @@ body {
 }
 
 form {
- 	background:#111; 
+ 	background:#111;
   width:300px;
   margin:30px auto;
   border-radius:0.4em;
@@ -42,7 +42,7 @@ form:before {
 }
 
 .inset {
- 	padding:20px; 
+ 	padding:20px;
   border-top:1px solid #19191a;
 }
 
@@ -79,6 +79,7 @@ label {
 
 input[type=text],
 input[type=password] {
+  color: white;
  	width:100%;
   padding:8px 5px;
   background:linear-gradient(#1f2124, #27292c);
@@ -93,7 +94,6 @@ label[for=remember]{
  	color:white;
   display:inline-block;
   padding-bottom:0;
-  padding-top:5px;
 }
 
 input[type=checkbox] {
@@ -102,7 +102,7 @@ input[type=checkbox] {
 }
 
 .p-container {
- 	padding:0 20px 20px 20px; 
+ 	padding:0 20px 20px 20px;
 }
 
 .p-container:after {
