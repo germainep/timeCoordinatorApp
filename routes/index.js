@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 // import index controller
 var index = require('../controllers/index.js');
+// give access to the auth strategies we wrote in config/passport 
+var passport = require('passport');
 
 // Routes for index 
 
@@ -20,7 +22,11 @@ router.route('/signup')
 	.get(function (req, res) {
 		res.render('signup.jade', {message: req.flash('signupMessage')});
 	})
-	.post();
+	.post(passport.authenticate('local-signup', {
+		successRedirect: '/profile',
+		failureRedirect: '/signup',
+		failureFlash: true
+	}));
 
 router.route('/profile')
 	.get(isLoggedIn, function (req, res) {

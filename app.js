@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 var passport = require('passport');
 
 var port = process.env.PORT || 8080;
+var session = require('express-session')
 
 // route files
 var routes = require('./routes/index');
@@ -17,8 +18,14 @@ var api = require('./routes/api');
 
 var app = express();
 
+app.use(session({ secret: 'FCC is the best' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+
 // === passport configuration =====
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
