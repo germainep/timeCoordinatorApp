@@ -7,22 +7,24 @@ var index = require('../controllers/index.js');
 
 router.route('/')
 	.get(function (req, res, next) {
-		res.render('index', {title: 'Express' });
+		res.render('index.jade', {title: 'Express' });
 	});
 
 router.route('/login')
 	.get(function (req, res, next) {
-		res.render('login', {title: 'Login'});
+		res.render('login.jade', {title: 'Login'});
 	})
 	.post(index.login);
 
 router.route('/signup')
-	.get()
+	.get(function (req, res) {
+		res.render('signup.jade', {message: req.flash('signupMessage')});
+	})
 	.post();
 
 router.route('/profile')
 	.get(isLoggedIn, function (req, res) {
-		res.render('profile.ejs', {
+		res.render('profile.jade', {
 			// passes the user to the template from the user session
 			user: req.user
 		});

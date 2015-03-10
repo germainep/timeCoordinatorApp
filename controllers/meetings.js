@@ -30,15 +30,19 @@ exports.create = function(req, res) {
 };
 
 /**
- * Show the current meeting
+ * Shows ONE meeting (list shows all meetings or <<TODO>> allows filtering)
  */
 exports.read = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
 			res.send(404)
 		}
+		if (!meeting) {
+			res.status(404).send("This meeting does not exist.");
+		} else {
 		res.json(meeting);
-	})
+	}
+	});
 };
 
 // Can also use findByIdAndUpdate  ... 
