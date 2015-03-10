@@ -12,7 +12,6 @@ This method avoids the possibility that two poeple might push conflicting change
 
 4. As the group repo gets updated, you can set up another remote on your computer to pull in new information. For example, you can have "origin" refer to your personal repo, and "upstream" refer to the FCC group repo. 
 
-
 # Current Needs
 Lots of TODOs are listed in the comments, be sure to check them out.
 
