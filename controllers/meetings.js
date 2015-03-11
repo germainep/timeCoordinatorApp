@@ -18,7 +18,7 @@ var _ = require('lodash');
  */
 exports.create = function(req, res) {
 	var meeting = new Meeting({});
-	meeting = _.extend(meeting, req.body);
+	meeting = _.assign(meeting, req.body);
 	meeting.admin = "This will eventually save the user id of the creator.";
 	meeting.save(function(err) {
 		if (err) {
@@ -52,7 +52,7 @@ exports.update = function(req, res) {
 		if (err) {
 			res.send(404);
 		}
-		meeting = _.extend(meeting, req.body);
+		meeting = _.assign(meeting, req.body);
 		meeting.save(function(err) {
 			if (err) {
 				return res.status(400);
