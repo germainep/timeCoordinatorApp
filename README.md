@@ -4,12 +4,16 @@ An app that helps people across different time zones easily figure out when they
 # How to Contribute
 1. Fork this repo into your personal account.
 
-## to set up the development environment:
+###to set up the development environment:
+Pull down the git file to your local environment (git pull <remote> <branch>)
+
 run npm install in the project folder to get all the latest dependencies. (the node_modules folder is ignored by git.)
 
 create an .env file and populate with various keys. As we add login services, this list will change. You will need to create your own developer app keys for each service, add to your local .env file, and run with those. They will NOT get uploaded to github (since .env files are listed in the .gitignore file). 
 
 You'll also need to be running a mongo server on your machine to run the app.
+
+###Adding contributions
 
 2. Make your contributions locally, and then push your changes to your personal repo, not the group repo.
 
