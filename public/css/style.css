@@ -1,14 +1,15 @@
 * { box-sizing: border-box; padding:0; margin: 0; }
 
 body {
-	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   color:white;
   font-size:12px;
   background:#333 ;
 }
 
 form {
- 	background:#111;
+  /* original color #111 changed by Thiago */
+  background:#235;
   width:300px;
   margin:30px auto;
   border-radius:0.4em;
