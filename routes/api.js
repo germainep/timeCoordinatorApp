@@ -32,6 +32,8 @@ router.route('/users/:user_id')
 		//respond with a User object
 		var user = req.params.user_id;
 		res.send("respond with a User object, "+user);
+		// TODO do NOT respond with the entire user object (i.e. passwords, etc)
+		// JUST send name, profile info, etc.
 	})
 	.put(function(req, res) {
 		// modify a user
