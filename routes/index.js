@@ -11,24 +11,8 @@ router.route('/')
 	.get(function (req, res, next) {
 		res.render('index.jade', {title: 'Express' });
 	});
-// LOCAL strategy
-router.route('/login')
-	.get(function (req, res, next) {
-		res.render('login.jade', {title: 'Login'});
-	})
-	.post(passport.authenticate('local-login', {
-		successRedirect: '/profile',
-		failureRedirect: '/login',
-		failureFlash: true
-	}));
-// TWITTER routes
-router.route('/auth/twitter')
-	.get(passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter',{
-	successRedirect: '/profile',
-	failureRedirect: '/login'
-	}));
 
+// LOCAL strategy sign up 
 router.route('/signup')
 	.get(function (req, res) {
 		res.render('signup.jade', {message: req.flash('signupMessage')});
@@ -39,13 +23,32 @@ router.route('/signup')
 		failureFlash: true
 	}));
 
+router.route('/login')
+	.get(function (req, res, next) {
+		res.render('login.jade', {title: 'Login'});
+	})
+	.post(passport.authenticate('local-login', {
+		successRedirect: '/profile',
+		failureRedirect: '/login',
+		failureFlash: true
+	}));
+
+
 router.route('/profile')
 	.get(isLoggedIn, function (req, res) {
 		res.render('profile.jade', {
 			// passes the user to the template from the user session
 			user: req.user
 		});
+});
+
+router.route('/profile/edit')
+	.get(isLoggedIn, function(req, res) {
+		res.render('editprofile.jade', {
+			user: req.user
+		});
 	});
+
 
 router.route('/logout')
 	.get(function (req, res) {
