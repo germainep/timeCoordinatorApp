@@ -1,13 +1,18 @@
 var mongoose = require('mongoose');
-//var Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 var meetingSchema = mongoose.Schema({
 	name: String,
-	admin: String,
+	admin: { type: Schema.Types.ObjectId, ref: 'User' },
 	description: String,
 	date: Number,
-	participants: String
+	participants: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
+
+meetingSchema.methods.getParticipants = function() {
+	// return array of Users who are participants
+	
+};
 
 module.exports = mongoose.model('Meeting', meetingSchema);
 

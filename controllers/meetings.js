@@ -10,6 +10,7 @@ Properly configure controller
  */
 var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
+var User = require('../models/user');
 var _ = require('lodash');
 
 /**
@@ -19,7 +20,7 @@ var _ = require('lodash');
 exports.create = function(req, res) {
 	var meeting = new Meeting({});
 	meeting = _.assign(meeting, req.body);
-	meeting.admin = "This will eventually save the user id of the creator.";
+	meeting.admin = req.user._id;
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
@@ -27,6 +28,7 @@ exports.create = function(req, res) {
 			var o = {
 				id: meeting._id,
 				name: meeting.name,
+				admin: meeting.admin,
 				participants: meeting.participants,
 				description: meeting.description,
 				date: meeting.date
@@ -40,7 +42,7 @@ exports.create = function(req, res) {
  * Shows ONE meeting (list shows all meetings or <<TODO>> allows filtering)
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id, function(err, meeting) {
+	/*Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
 			res.send(404)
 		}
@@ -52,10 +54,30 @@ exports.read = function(req, res) {
 				admin: meeting.admin,
 				description: meeting.description,
 				date: meeting.date,
-				participants: meeting.participants
+				participants: "no people yet"
 			};
 			res.json(o);
 	}
+	});*/
+	Meeting.findById(req.params.meeting_id).populate('admin').exec(function(err, meeting) {
+		if (err) {
+			res.send(404);
+		}
+		if (!meeting) {
+			res.status(404).send("This meeting does not exist.");
+		} else {
+			var o = {
+				name: meeting.name,
+				admin: {
+					username: meeting.admin.username,
+					id: meeting.admin._id
+				},
+				description: meeting.description,
+				date: meeting.date,
+				participants: "No functionality yet"
+			};
+			res.json(o);
+		}
 	});
 };
 
