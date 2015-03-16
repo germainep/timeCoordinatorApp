@@ -12,7 +12,9 @@ var _ = require('lodash');
 exports.addAvail = function(req, res) {
 	// create a new object
 	var avail = new Avail({});
-	avail = _.assign(avail, req.body);
+	// create Date objects from the input strings
+	avail.start = new Date(req.body.start);
+	avail.end = new Date(req.body.end);
 	avail.username = req.user._id;
 	// add it to a meeting
 	Meeting.findById(req.body.meeting_id, function(err, meeting) {

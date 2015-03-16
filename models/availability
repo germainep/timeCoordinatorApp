@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var availabilitySchema = mongoose.Schema({
 	username: { type: Schema.Types.ObjectId, ref: 'User' },
-	start: Number,
-	end: Number
+	start: Date,
+	end: Date
 });
 
 
