@@ -21,6 +21,7 @@ exports.create = function(req, res) {
 	var meeting = new Meeting({});
 	meeting = _.assign(meeting, req.body);
 	meeting.admin.push(req.user._id);
+	meeting.lastUpdated = Date.now();
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
@@ -39,10 +40,10 @@ exports.create = function(req, res) {
 };
 
 /**
- * Shows ONE meeting (list shows all meetings or <<TODO>> allows filtering)
+ * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').exec(function(err, meeting) {
+	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
 			res.send(404);
 		}
@@ -54,7 +55,9 @@ exports.read = function(req, res) {
 				admin: meeting.admin,
 				description: meeting.description,
 				date: meeting.date,
-				participants: meeting.participants
+				participants: meeting.participants,
+				lastUpdated: meeting.lastUpdated,
+				availability: meeting.avail
 			};
 			res.json(o);
 		}
@@ -69,6 +72,7 @@ exports.update = function(req, res) {
 			res.send(404);
 		}
 		meeting = _.assign(meeting, req.body);
+		meeting.lastUpdated = Date.now();
 		meeting.save(function(err) {
 			if (err) {
 				return res.status(400);
@@ -78,7 +82,7 @@ exports.update = function(req, res) {
 					id: meeting._id,
 					description: meeting.description,
 					participants: meeting.participants,
-					date: meeting.date
+					lastUpdated: meeting.lastUpdated
 				};
 				res.json(o);
 			}
@@ -97,6 +101,17 @@ exports.list = function(req, res) {
 		res.json(meetings);
 	})
 };
+
+exports.inviteUsers = function(req, res) {
+	// the view will allow the user to select which meeting and which users to invite
+	// should also show which users are already invited
+
+	// each user will get an email sent to them with an invitation
+}
+
+exports.showInvitePanel = function(req, res) {
+	// the view needs to see which 
+}
 
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
