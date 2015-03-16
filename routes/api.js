@@ -8,6 +8,7 @@ var express = require('express');
 var router = express.Router();
 var meetings = require('../controllers/meetings');
 var users = require('../controllers/users');
+var avail = require('../controllers/availability');
 
 // API routes
 router.get('/', function(req, res, next) {
@@ -38,6 +39,15 @@ router.route('/meetings/:meeting_id')
 router.route('/meetings')
 	.post(meetings.create)
 	.get(meetings.list);
+
+// allows for inviting users to a meeting.
+// not having a route param allows the page to display options relative to that user.
+router.route('/meetings/invite')
+	.get()
+	.post();
+
+router.route('/meetings/:meeting_id/add-availability')
+	.post(avail.addAvail);
 
 // 		USERS ROUTES
 //	========================

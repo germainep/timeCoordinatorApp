@@ -19,17 +19,19 @@ var _ = require('lodash');
  * 	(i.e. does not show passwords or sensitive data)
  */
 exports.read = function(req, res) {
-	User.findById(req.params.user_id, 'username meetings -_id', function(err, user) {
+	User.findById(req.params.user_id, function(err, user) {
 		if (err) {
 			res.send(404)
 		}
 		if (!user) {
 			res.status(404).send("This user does not exist.");
 		} else {
-			// maybe add some contact info so people can get in touch?
-			// the query ONLY sends back the username and meetings
-			res.json(user);
-	}
+			var o = {
+				username: user.username,
+				meetings: user.meetings
+			};
+			res.json(o);
+		}
 	});
 };
 
@@ -44,33 +46,17 @@ exports.update = function(req, res) {
 		user.save(function(err) {
 			if (err) {
 				return res.status(400);
-			} 
-		res.location('back');
-		res.json(user);
+			} else {
+				var o = {
+					username: user.username,
+					meetings: user.meetings
+				};
+				res.json(o);
+			}
+		
 			
 		});
 	});
 	
 };
 
-exports.list = function(req, res) {
-	Meeting.find(function(err, meetings) {
-		if (err) {
-			res.send(404);
-		}
-		res.json(meetings);
-	})
-};
-
-exports.destroy = function(req, res) {
-	Meeting.findById(req.params.meeting_id, function(err, meeting) {
-		meeting.remove(function(err) {
-			if (err) {
-				res.send(500);
-			}
-			res.send("Meeting with id: "+meeting._id+" is removed.");
-		});
-	});
-}
-
-// authentication to see meetings?
