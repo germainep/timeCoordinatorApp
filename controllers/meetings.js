@@ -24,7 +24,14 @@ exports.create = function(req, res) {
 		if (err) {
 			return res.status(400);
 		} else {
-			res.json(meeting);
+			var o = {
+				id: meeting._id,
+				name: meeting.name,
+				participants: meeting.participants,
+				description: meeting.description,
+				date: meeting.date
+			};
+			res.json(o);
 		}
 	});
 };
@@ -40,7 +47,14 @@ exports.read = function(req, res) {
 		if (!meeting) {
 			res.status(404).send("This meeting does not exist.");
 		} else {
-		res.json(meeting);
+			var o = {
+				name : meeting.name,
+				admin: meeting.admin,
+				description: meeting.description,
+				date: meeting.date,
+				participants: meeting.participants
+			};
+			res.json(o);
 	}
 	});
 };
@@ -56,14 +70,23 @@ exports.update = function(req, res) {
 		meeting.save(function(err) {
 			if (err) {
 				return res.status(400);
-			} 
-			res.json(meeting);
+			} else {
+				var o = {
+					name: meeting.name,
+					id: meeting._id,
+					description: meeting.description,
+					participants: meeting.participants,
+					date: meeting.date
+				};
+				res.json(o);
+			}
+			
 			
 		});
 	});
 	
 };
-
+// this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
 	Meeting.find(function(err, meetings) {
 		if (err) {
