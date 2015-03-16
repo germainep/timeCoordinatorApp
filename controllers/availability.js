@@ -17,7 +17,7 @@ exports.addAvail = function(req, res) {
 	avail.end = new Date(req.body.end);
 	avail.username = req.user._id;
 	// add it to a meeting
-	Meeting.findById(req.body.meeting_id, function(err, meeting) {
+	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
 			res.send(err);
 		}

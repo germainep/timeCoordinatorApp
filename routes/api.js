@@ -46,7 +46,7 @@ router.route('/meetings/invite')
 	.get()
 	.post();
 
-router.route('/meetings/add-availability')
+router.route('/meetings/:meeting_id/add-availability')
 	.post(avail.addAvail);
 
 // 		USERS ROUTES
