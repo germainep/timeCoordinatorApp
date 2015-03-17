@@ -1,18 +1,8 @@
-// User controller
-
-
-
 'use strict';
 
-/**
- * Module dependencies.
- */
 var mongoose = require('mongoose');
 var	User = require('../models/user');
 var _ = require('lodash');
-
-// There is no "create" function for users accessible via the API.
-// Users either need to sign up on the website or login via a service.
 
 /**
  * Shows ONE User's information, and ONLY shows safe information 
@@ -43,6 +33,7 @@ exports.update = function(req, res) {
 			res.sendStatus(404);
 		}
 		user = _.assign(user, req.body);
+
 		user.save(function(err) {
 			if (err) {
 				return res.status(400);

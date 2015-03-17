@@ -22,6 +22,18 @@ exports.create = function(req, res) {
 	meeting = _.assign(meeting, req.body);
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
+	// and save this meeting id to the user's meetings array
+	User.findById(req.user_id, function(err, user) {
+		user.meetings.push(meeting._id);
+		user.save(function(err) {
+			if (err) {
+				return res.status(400);
+			} else {
+				console.log("User updated.");
+			}
+		});
+	});
+	// now save this meeting.
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
@@ -45,10 +57,10 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
 	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
-			res.send(404);
+			return res.sendStatus(404);
 		}
 		if (!meeting) {
-			res.status(404).send("This meeting does not exist.");
+			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
 			var o = {
 				name: meeting.name,
