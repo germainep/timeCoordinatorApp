@@ -20,10 +20,19 @@ var _ = require('lodash');
 exports.create = function(req, res) {
 	var meeting = new Meeting({});
 	meeting = _.assign(meeting, req.body);
+
+	// save the creator as the admin
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
+
+	// also save the creator as a participant of the meeting
+	meeting.participants.push(req.user._id);
+
 	// and save this meeting id to the user's meetings array
-	User.findById(req.user_id, function(err, user) {
+	User.findById(req.user._id, function(err, user) {
+		if (!user) {
+			return res.status(404);
+		} else {
 		user.meetings.push(meeting._id);
 		user.save(function(err) {
 			if (err) {
@@ -32,8 +41,9 @@ exports.create = function(req, res) {
 				console.log("User updated.");
 			}
 		});
+		}	
 	});
-	// now save this meeting.
+	// now save this meeting itself to the database.
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
