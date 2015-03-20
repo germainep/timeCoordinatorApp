@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var	User = require('../models/user');
+var Meeting = require('../models/meeting');
 var _ = require('lodash');
 
 /**
@@ -48,6 +49,42 @@ exports.update = function(req, res) {
 			
 		});
 	});
+	
+};
+
+// Adds a user to a meeting.
+
+exports.joinMeeting = function(req, res) {
+	// find a meeting
+	var meeting_id = req.params.meeting_id;
+	Meeting.findById(meeting_id).exec(function(err, meeting) {
+		if (err) {
+			res.sendStatus(404);
+		}
+		console.log(meeting);
+		// add the user to that meeting participants array
+		meeting.participants.push(req.user._id);
+		meeting.save(function(err) {
+			if (err) {
+				res.sendStatus(500);
+			}
+			return;
+		});
+	});
+
+	// add the meeting to the user's meetings array
+	User.findById(req.user._id, function(err, user) {
+		user.meetings.push(meeting_id);
+		user.save(function(err) {
+			if (err) {
+				res.sendStatus(500);
+			}
+			var username = req.user.username;
+			res.json({message: username+ " has successfully joined meeting "+ meeting_id});
+		});
+	});
+
+	
 	
 };
 

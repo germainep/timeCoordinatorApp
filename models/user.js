@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var userSchema = mongoose.Schema({
 	username: String,
-	meetings: [String],
+	meetings: [{ type: Schema.Types.ObjectId, ref: 'Meeting' }],
 	local: {
 		email: String,
 		password: String

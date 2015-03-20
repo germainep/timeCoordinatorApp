@@ -39,6 +39,12 @@ router.route('/meetings/:meeting_id')
 	.put(meetings.update)
 	.delete(meetings.destroy);
 
+router.route('/meetings/:meeting_id/add-availability')
+	.put(avail.addAvail);
+
+router.route('/meetings/join/:meeting_id')
+	.post(users.joinMeeting);
+
 // all meetings / multiple meetings
 router.route('/meetings')
 	.post(meetings.create)
@@ -50,8 +56,7 @@ router.route('/meetings/invite')
 	.get()
 	.post();
 
-router.route('/meetings/:meeting_id/add-availability')
-	.post(avail.addAvail);
+
 
 // 		USERS ROUTES
 //	========================
