@@ -23,9 +23,18 @@ participants - Array of User Ids. This is also populated when a single meeting i
 lastUpdated - Date, whenever the meeting information is updated, this date is refreshed.
 availability - Array of availability objects.
 
+Availability objects have three fields:
+username: User objectId
+start: Date
+end: Date
+
+Both Dates are stored on the server as UTC time. 
+
 #POST  
 A POST to /api/meetings creates a new meeting object.
 The creator of the meeting is automatically pushed to the admin Array and to participants. The lastUpdated field is set to the Date the meeting was published. The meeting object is also pushed into the User creating the meeting's meetings array, so there is a two-way reference.
+
+You can make a POST with the following fields: name, description, date. 
 
 #Single Meetings
 /api/meetings/:meeting_id
