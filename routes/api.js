@@ -22,6 +22,10 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
+	// if they are not logged in, save the
+	// current page they're trying to get to
+	// this way they can come back after authenticating
+	req.session.returnTo = "/api"+req.url;
 	console.log("User is not logged in.");
 	res.redirect('/login');
 }

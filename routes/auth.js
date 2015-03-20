@@ -13,7 +13,8 @@ var passport = require('passport');
 router.route('/auth/twitter')
 	.get(passport.authenticate('twitter'));
 router.get('/auth/twitter/callback', passport.authenticate('twitter',{
-	successRedirect: '/profile',
+	successReturnToOrRedirect: '/profile',
+	//successRedirect: '/profile',
 	failureRedirect: '/login'
 }));
 
