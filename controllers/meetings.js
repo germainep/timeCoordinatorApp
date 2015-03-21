@@ -20,8 +20,30 @@ var _ = require('lodash');
 exports.create = function(req, res) {
 	var meeting = new Meeting({});
 	meeting = _.assign(meeting, req.body);
+
+	// save the creator as the admin
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
+
+	// also save the creator as a participant of the meeting
+	meeting.participants.push(req.user._id);
+
+	// and save this meeting id to the user's meetings array
+	User.findById(req.user._id, function(err, user) {
+		if (!user) {
+			return res.status(404);
+		} else {
+		user.meetings.push(meeting._id);
+		user.save(function(err) {
+			if (err) {
+				return res.status(400);
+			} else {
+				console.log("User updated.");
+			}
+		});
+		}	
+	});
+	// now save this meeting itself to the database.
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
@@ -45,10 +67,10 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
 	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
-			res.send(404);
+			return res.sendStatus(404);
 		}
 		if (!meeting) {
-			res.status(404).send("This meeting does not exist.");
+			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
 			var o = {
 				name: meeting.name,

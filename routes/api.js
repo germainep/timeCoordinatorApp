@@ -22,6 +22,10 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
+	// if they are not logged in, save the
+	// current page they're trying to get to
+	// this way they can come back after authenticating
+	req.session.returnTo = "/api"+req.url;
 	console.log("User is not logged in.");
 	res.redirect('/login');
 }
@@ -35,6 +39,12 @@ router.route('/meetings/:meeting_id')
 	.put(meetings.update)
 	.delete(meetings.destroy);
 
+router.route('/meetings/:meeting_id/add-availability')
+	.put(avail.addAvail);
+
+router.route('/meetings/join/:meeting_id')
+	.post(users.joinMeeting);
+
 // all meetings / multiple meetings
 router.route('/meetings')
 	.post(meetings.create)
@@ -46,8 +56,7 @@ router.route('/meetings/invite')
 	.get()
 	.post();
 
-router.route('/meetings/:meeting_id/add-availability')
-	.post(avail.addAvail);
+
 
 // 		USERS ROUTES
 //	========================
