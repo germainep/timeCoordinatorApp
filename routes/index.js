@@ -18,7 +18,8 @@ router.route('/signup')
 		res.render('signup.jade', {message: req.flash('signupMessage')});
 	})
 	.post(passport.authenticate('local-signup', {
-		successRedirect: '/profile',
+		//successRedirect: '/profile',
+		successReturnToOrRedirect: '/profile',
 		failureRedirect: '/signup',
 		failureFlash: true
 	}));
@@ -28,7 +29,8 @@ router.route('/login')
 		res.render('login.jade', {title: 'Login'});
 	})
 	.post(passport.authenticate('local-login', {
-		successRedirect: '/profile',
+		//successRedirect: '/profile',
+		successReturnToOrRedirect: '/profile',
 		failureRedirect: '/login',
 		failureFlash: true
 	}));
