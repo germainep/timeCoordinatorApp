@@ -5,8 +5,10 @@ block content
     h1 Edit Profile
     h2 #{user.name}
     form(action="/profile/edit/update" method="post")
-      p: label(for="name" name="username") Username:
-      input(id="name" name="name" type="text")
-      input(type="submit" name="submit" id="name" value="Edit Profile")
+      h2 Update Your Username
+      .inset
+        p: label(for="name" name="username") Username:
+        input(id="name" name="name" type="text")
+        input(type="submit" name="submit" id="name" value="Edit Profile")
     a(href='/profile') back to profile
 

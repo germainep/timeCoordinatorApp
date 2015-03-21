@@ -8,7 +8,7 @@ var users = require('../controllers/users');
 
 router.route('/')
 	.get(function (req, res, next) {
-		res.render('login', {name: req.user });
+		res.render('login');
 	});
 
 // LOCAL strategy sign up 
@@ -34,12 +34,13 @@ router.route('/login')
 
 
 router.route('/profile')
-	.get(isLoggedIn, function (req, res) {
-		res.render('profile', {
-			// passes the user to the template from the user session
-			user: req.user
-		});
-    });
+  .get(isLoggedIn, function (req, res) {
+    res.render('profile', {user: req.user});
+  });
+
+router.get('/profile/user', isLoggedIn, function(req, res) {
+  res.json(req.user);
+});
 
 router.get('/profile/edit', isLoggedIn, function(req, res) {
 		res.render('editprofile', {

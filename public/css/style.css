@@ -79,7 +79,8 @@ label {
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email]{
   color: white;
  	width:100%;
   padding:8px 5px;
@@ -117,10 +118,16 @@ input[type=checkbox] {
   float:left;
   color:#0d93ff;
   padding-top:8px;
+  text-align: center;
+}
+
+.p-container span a{
+  margin: 0 10px;
 }
 
 input[type=submit] {
- 	padding:5px 20px;
+  padding:5px 20px;
+  margin-bottom: 20px;
   border:1px solid rgba(0,0,0,0.4);
   text-shadow:0 -1px 0 rgba(0,0,0,0.4);
   box-shadow:
