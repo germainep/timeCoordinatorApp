@@ -18,7 +18,7 @@ var port = process.env.PORT || 8080;
 
 // route files
 var routes = require('./routes/index');
-var auth = require('./routes/auth');
+//var auth = require('./routes/auth');
 var api = require('./routes/api');
 
 var app = express();
@@ -51,7 +51,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/auth', auth);
+//app.use('/auth', auth);
 app.use('/api', api);
 
 // catch 404 and forward to error handler

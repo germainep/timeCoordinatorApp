@@ -10,12 +10,10 @@ var passport = require('passport');
 
 // TWITTER strategy
 
-router.route('/auth/twitter')
-	.get(passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter',{
-	successReturnToOrRedirect: '/profile',
-	//successRedirect: '/profile',
-	failureRedirect: '/login'
+router.get('auth/twitter', passport.authenticate('twitter'));
+router.get('auth/twitter/callback', passport.authenticate('twitter',{
+	successRedirect: '/profile',
+	failureRedirect: 'login'
 }));
 
 

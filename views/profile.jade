@@ -4,12 +4,14 @@ block content
   h1= title
   h2 Hello #{user.name}!
   a(href="profile/edit") Edit Profile
-  .row
-    .col-md-6
-      h3 Your Information
-        p This will be the basic profile page for a user.
-    .col-md-6
-      h3 Your meetings
-        p They should be able to see all their meetings from one dashboard.
-        
   a(href="/logout") Log out
+  .row
+    .col-md-5.display-box
+      h3 Your Information
+      .inset
+      p This will be the basic profile page for a user.
+    .col-md-5.col-md-offset-2.display-box
+      h3 Your meetings
+      .inset
+      p They should be able to see all their meetings from one dashboard.
+      

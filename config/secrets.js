@@ -12,7 +12,7 @@ module.exports = {
     	consumerSecret: process.env.TWITTER_SECRET,
         accessToken: process.env.TWITTER_ACCESS_TOKEN,
         accessTokenSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-    	callbackURL: '/auth/twitter/callback',
+    	callbackURL: 'http:127.0.0.1:8080/auth/twitter/callback',
     	passReqToCallback: true
 	}
 };
