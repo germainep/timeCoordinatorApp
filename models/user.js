@@ -26,8 +26,16 @@ var userSchema = mongoose.Schema({
 		token: String,
 		email: String,
 		name: String
+<<<<<<< HEAD
 	}
 	
+=======
+	},
+
+	name: String,
+	meetings: [String]
+
+>>>>>>> added signup page persistent session storage fixed issue with not being able to update username added signin with twitter button removed login.html file due to not needing it
 });
 
 userSchema.methods.generateHash = function(password) {
