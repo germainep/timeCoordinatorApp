@@ -24,7 +24,7 @@ router.route('/signup')
 
 router.route('/login')
 	.get(function (req, res, next) {
-		res.render('login', {title: 'Login'});
+		res.render('login', {title: 'Login', message: req.flash('loginMassage')});
 	})
 	.post(passport.authenticate('local-login', {
 		successReturnToOrRedirect: 'profile',

@@ -5,13 +5,18 @@ block content
   h2 Hello #{user.name}!
   a(href="profile/edit") Edit Profile
   a(href="/logout") Log out
-  .row
+  .row(ng-controller="userController")
     .col-md-5.display-box
       h3 Your Information
+      #{message}
       .inset
+      h5 {{user.name}}
+      p {{user.local.email}}
       p This will be the basic profile page for a user.
     .col-md-5.col-md-offset-2.display-box
       h3 Your meetings
       .inset
-      p They should be able to see all their meetings from one dashboard.
+      p. 
+        {{user.meetings}} They should be able to see all their meetings from one dashboard. 
+        These will eventually have time lines that display the individual meetings in a grid
       
