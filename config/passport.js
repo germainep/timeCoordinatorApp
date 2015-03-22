@@ -38,10 +38,10 @@ module.exports = function(passport) {
 					return done(null, false, req.flash('signupMessage', 'That email is already registered here.'));
 				} else {
 					// if the user doesn't exist, create one.
-					var newUser = new User();
+					var newUser = new User({});
 					newUser.local.email = email;
 					newUser.local.password = newUser.generateHash(password);
-
+                    newUser.name = req.body.name;
 					//save the user to the database
 					newUser.save(function(err) {
 						if (err)
