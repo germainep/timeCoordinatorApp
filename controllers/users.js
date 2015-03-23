@@ -29,10 +29,12 @@ exports.read = function(req, res) {
 // Can also use findByIdAndUpdate  ... 
 exports.update = function(req, res) {
 	// update the user object
+	console.log("hitting the put function");
 	User.findById(req.params.user_id, function(err, user) {
 		if (err) {
 			res.sendStatus(404);
 		}
+		console.log(req.body);
 		user = _.assign(user, req.body);
 
 		user.save(function(err) {
