@@ -10,17 +10,17 @@ module.exports = {
 	twitter : {
 	    consumerKey: process.env.TWITTER_KEY,
     	consumerSecret: process.env.TWITTER_SECRET,
-    	callbackURL: '/auth/auth/twitter/callback',
+    	callbackURL: '/auth/twitter/callback',
     	passReqToCallback: true
 	},
 	facebook: {
 		clientID        : process.env.FACEBOOK_ID,
         clientSecret    : process.env.FACEBOOK_SECRET,
-        callbackURL     : '/auth/auth/facebook/callback'
+        callbackURL     : '/auth/facebook/callback'
 	},
 	google: {
 		clientID        : process.env.GOOGLE_ID,
         clientSecret    : process.env.GOOGLE_SECRET,
-        callbackURL     : '/auth/auth/google/callback'
+        callbackURL     : '/auth/google/callback'
 	}
 };

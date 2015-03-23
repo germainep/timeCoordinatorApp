@@ -1,6 +1,8 @@
 doctype html
 html(ng-app='timeApp')
   head
+    script(src="https://apis.google.com/js/client:platform.js")
+    meta(name="google-signin-client_id" content="916306076760-1nmp1m6hgab33qj6kftvc9m1o46hdveu.apps.googleusercontent.com")
     title= title
     link(rel='stylesheet' href='/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
@@ -10,3 +12,4 @@ html(ng-app='timeApp')
     script(src='/lib/angular-ui-router.js')
     script(src='/js/app.js')
     script(src='/js/modules/user-module.js')
+    
