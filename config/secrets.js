@@ -10,8 +10,6 @@ module.exports = {
 	twitter : {
 	    consumerKey: process.env.TWITTER_KEY,
     	consumerSecret: process.env.TWITTER_SECRET,
-        //accessToken: process.env.TWITTER_ACCESS_TOKEN,
-        //accessTokenSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     	callbackURL: '/auth/auth/twitter/callback',
     	passReqToCallback: true
 	},

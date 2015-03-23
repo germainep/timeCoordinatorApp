@@ -32,11 +32,6 @@ router.route('/login')
 		failureFlash: true
 	}));
 
-router.get('/auth/twitter', passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter',{
-  successRedirect: '/profile',
-  failureRedirect: 'login'
-}));
 
 router.route('/profile')
   .get(isLoggedIn, function (req, res) {
