@@ -18,7 +18,7 @@ var port = process.env.PORT || 8080;
 
 // route files
 var routes = require('./routes/index');
-//var auth = require('./routes/auth');
+var auth = require('./routes/auth');
 var api = require('./routes/api');
 
 var app = express();
@@ -26,6 +26,7 @@ var app = express();
 app.use(session({ secret: 'FCC is the best',
   resave: false,
   saveUninitialized: false,
+  cookie: {maxAge: 1},
   store: new mongoStore({mongooseConnection: mongoose.connection})
                 })); // session secret
 app.use(passport.initialize());
@@ -51,7 +52,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-//app.use('/auth', auth);
+app.use('/auth', auth);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
