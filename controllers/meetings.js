@@ -19,8 +19,9 @@ var _ = require('lodash');
  */
 exports.create = function(req, res) {
 	var meeting = new Meeting({});
-	meeting = _.assign(meeting, req.body);
-
+	meeting.name = (req.body.meetingname);
+    meeting.description= (req.body.description);
+    
 	// save the creator as the admin
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
@@ -65,7 +66,7 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').populate('availability', 'username').exec(function(err, meeting) {
+	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(404);
 		}
@@ -121,7 +122,7 @@ exports.list = function(req, res) {
 			res.send(404);
 		}
 		res.json(meetings);
-	})
+	});
 };
 
 exports.inviteUsers = function(req, res) {
@@ -129,11 +130,11 @@ exports.inviteUsers = function(req, res) {
 	// should also show which users are already invited
 
 	// each user will get an email sent to them with an invitation
-}
+};
 
 exports.showInvitePanel = function(req, res) {
 	// the view needs to see which 
-}
+};
 
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
@@ -144,6 +145,6 @@ exports.destroy = function(req, res) {
 			res.send("Meeting with id: "+meeting._id+" is removed.");
 		});
 	});
-}
+};
 
 // authentication to see meetings?

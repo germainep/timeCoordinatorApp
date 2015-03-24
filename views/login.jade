@@ -1,19 +1,21 @@
 extends layout
 
 block content
-  form(action="/login", method="post")
+  form.loginsignup(action="/login" method="post")
     h1 User Log In
     .inset
-      p: label(for="email") Email Address
-      input(type="text" name="email" id="email")
-      p: label(for="password") Password
-      input(type="password" name="password" id="password")
+      p: label(for="email") Email Address:
+        input(type="text" name="email" id="email")
+      p: label(for="password") Password:
+        input(type="password" name="password" id="password")
       p: label(for="remember") Remember Me 
-      input(type="checkbox" name="remember" id="remember")
-      p.p-container: span
+        input(type="checkbox" name="remember" id="remember")
+      p: .p-container: span
         a(href='/signup') SignUp
         a(href="#") Forgot Password?
       input(type="submit" value="Log In")
-      p: a(href='/auth/auth/twitter')
-        img(src='/img/twitter-link.png')
+      p
+        a(href='/auth/twitter'): img(src='/img/twitter-link.png' alt='signin with twiter')
+        a(href='auth/google'): img(src='/img/Red-signin-md.png' alt='sign in with google')
+      
   
