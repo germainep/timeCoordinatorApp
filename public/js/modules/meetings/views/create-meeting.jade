@@ -1,5 +1,6 @@
-p: label(for='meeting-name' name='Meeting Name') Meeting Name
-  input(name='meeting-name' type='text')
-p: label(for='description' name='description') Description
-  textarea(rows='10' cols='10')
-p: label Date
+form(class='states' action='/api/meetings' method='post')
+  p: label(for='name' name='meetingname') Meeting Name
+  input(type='text' name='meetingname')
+  p: label(for='description' name='description') Description
+    textarea( name='description' rows='10' cols='40')
+  input(type='submit' name='submit' value='create meeting')

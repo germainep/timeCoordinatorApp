@@ -19,6 +19,9 @@ block content
       p. 
         {{user.meetings}} They should be able to see all their meetings from one dashboard. 
         These will eventually have time lines that display the individual meetings in a grid
-      a(sref='/js/meetings/views/create-meeting') Create A New Meeting
+      div(ng-repeat='meeting in meetings')
+        h1 {{meeting.name}}
+        
+      a(ui-sref='meetings') Create A New Meeting
       div(ui-view)
       

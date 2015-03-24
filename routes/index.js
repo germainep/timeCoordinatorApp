@@ -3,6 +3,7 @@ var router = express.Router();
 // give access to the auth strategies we wrote in config/passport 
 var passport = require('passport');
 var users = require('../controllers/users');
+var meetings = require('../controllers/meetings');
 
 // Routes for index 
 
@@ -43,9 +44,7 @@ router.get('/profile/user', isLoggedIn, function(req, res) {
 });
 
 router.get('/profile/edit', isLoggedIn, function(req, res) {
-		res.render('editprofile', {
-			user: req.user
-		});
+		res.render('editprofile', {user: req.user});
 	})
     .post('/profile/edit/update', users.editProfile);
 
