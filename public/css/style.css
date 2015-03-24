@@ -7,7 +7,7 @@ body {
   background:#333 ;
 }
 
-form {
+.loginsignup form {
   /* original color #111 changed by Thiago */
   background:#235;
   width:300px;
@@ -19,7 +19,7 @@ form {
   box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
 }
 
-form:after {
+.loginsignup form:after {
   content:"";
   display:block;
   position:absolute;
@@ -30,8 +30,8 @@ form:after {
   top:0;
 }
 
-form:before {
- 	content:"";
+.loginsignup form:before {
+  content:"";
   display:block;
   position:absolute;
   width:8px;
@@ -43,7 +43,7 @@ form:before {
 }
 
 .inset {
- 	padding:20px;
+  padding:20px;
   border-top:1px solid #19191a;
 }
 
@@ -57,7 +57,7 @@ form h1 {
 }
 
 form h1:after {
- 	content:"";
+  content:"";
   display:block;
   width:250px;
   height:100px;
@@ -73,41 +73,41 @@ form h1:after {
 }
 
 label {
- 	color:#666;
+  color:#666;
   display:block;
   padding-bottom:9px;
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email]{
   color: white;
- 	width:100%;
+  width:100%;
   padding:8px 5px;
   background:linear-gradient(#1f2124, #27292c);
   border:1px solid #222;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.1);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-radius:0.3em;
   margin-bottom:20px;
 }
 
 label[for=remember]{
- 	color:white;
+  color:white;
   display:inline-block;
   padding-bottom:20;
 }
 
 input[type=checkbox] {
- 	display:inline-block;
+  display:inline-block;
   vertical-align:bottom;
 }
 
 .p-container {
- 	padding:0 20px 20px 20px;
+  padding:0 20px 20px 20px;
 }
 
 .p-container:after {
- 	clear:both;
+  clear:both;
   display:table;
   content:"";
 }
@@ -117,10 +117,16 @@ input[type=checkbox] {
   float:left;
   color:#0d93ff;
   padding-top:8px;
+  text-align: center;
+}
+
+.p-container span a{
+  margin: 0 10px;
 }
 
 input[type=submit] {
- 	padding:5px 20px;
+  padding:5px 20px;
+  margin-bottom: 20px;
   border:1px solid rgba(0,0,0,0.4);
   text-shadow:0 -1px 0 rgba(0,0,0,0.4);
   box-shadow:
@@ -145,5 +151,16 @@ input[type=text]:hover,
 input[type=password]:hover,
 label:hover ~ input[type=text],
 label:hover ~ input[type=password] {
- 	background:#27292c;
+  background:#27292c;
+}
+
+.display-box{
+  background: #235;
+  border-radius: 0.4em;
+  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2)
+  
+}
+
+.states form {
+  background: #eee;
 }
