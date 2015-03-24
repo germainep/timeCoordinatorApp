@@ -122,7 +122,7 @@ exports.list = function(req, res) {
 			res.send(404);
 		}
 		res.json(meetings);
-	})
+	});
 };
 
 exports.inviteUsers = function(req, res) {
@@ -130,11 +130,11 @@ exports.inviteUsers = function(req, res) {
 	// should also show which users are already invited
 
 	// each user will get an email sent to them with an invitation
-}
+};
 
 exports.showInvitePanel = function(req, res) {
 	// the view needs to see which 
-}
+};
 
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
@@ -145,6 +145,6 @@ exports.destroy = function(req, res) {
 			res.send("Meeting with id: "+meeting._id+" is removed.");
 		});
 	});
-}
+};
 
 // authentication to see meetings?

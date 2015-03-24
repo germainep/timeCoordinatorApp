@@ -11,16 +11,17 @@ block content
       .inset
       a(href="profile/edit") Edit Profile
       h5 {{user.name}}
-      p {{user.local.email}}
+      p {{user.email}}
       p This will be the basic profile page for a user.
     .col-md-5.col-md-offset-2.display-box
       h3 Your meetings
       .inset
       p. 
-        {{user.meetings}} They should be able to see all their meetings from one dashboard. 
+        They should be able to see all their meetings from one dashboard. 
         These will eventually have time lines that display the individual meetings in a grid
       div(ng-repeat='meeting in meetings')
-        h1 {{meeting.name}}
+        h1 {{user.meetings}}
+        p admin: {{meeting.admin}}
         
       a(ui-sref='meetings') Create A New Meeting
       div(ui-view)

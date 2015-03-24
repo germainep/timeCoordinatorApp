@@ -7,7 +7,7 @@ body {
   background:#333 ;
 }
 
-form {
+.loginsignup form {
   /* original color #111 changed by Thiago */
   background:#235;
   width:300px;
@@ -19,7 +19,7 @@ form {
   box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
 }
 
-form:after {
+.loginsignup form:after {
   content:"";
   display:block;
   position:absolute;
@@ -30,7 +30,7 @@ form:after {
   top:0;
 }
 
-form:before {
+.loginsignup form:before {
   content:"";
   display:block;
   position:absolute;
@@ -159,4 +159,8 @@ label:hover ~ input[type=password] {
   border-radius: 0.4em;
   box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2)
   
+}
+
+.states form {
+  background: #eee;
 }

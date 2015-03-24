@@ -1,13 +1,7 @@
 angular.module('UserModule', [ ])
-  .controller('UserController', ['$http', '$scope', function($http, $scope) {
-  $http.get('/profile/user')
-    .success(function(data, status, headers, config) {
-    $scope.user = data;
-    $scope.meetings = data.meetings;
-    $scope.error = ' ';
-  })
-    .error(function(data, status, headers, config) {
-    $scope.user = {};
-    $scope.error = data;
-  });
-}]);
+  .controller('UserController', ['$http', '$scope', 'User', function($http, $scope, User, Meeting) {
+    var user = User.get({id: '@_id'});
+    $scope.user = user;
+    
+    console.log($scope.user);
+  }])
