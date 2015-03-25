@@ -45,11 +45,6 @@ router.get('/profile/user', isLoggedIn, function(req, res) {
     if (err) {
       return res.sendStatus(404);
     } else {
-    var user = {
-      name: user.name,
-      email: user.local.email,
-      meetings: user.meetings 
-    };
     res.json(user);
     }
   });
