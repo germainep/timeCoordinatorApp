@@ -11,6 +11,7 @@ Properly configure controller
 var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
 var User = require('../models/user');
+var Avail = require('../models/availability');
 var _ = require('lodash');
 
 /**
@@ -72,6 +73,15 @@ exports.read = function(req, res) {
 		if (!meeting) {
 			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
+			// convert to local time zone
+
+			var availability = meeting.avail;
+
+			availability.forEach(function(object) {
+				object.end = new Date(object.end).toString();
+				object.start = new Date(object.start).toString();
+			});
+
 			var o = {
 				name: meeting.name,
 				admin: meeting.admin,
@@ -79,7 +89,7 @@ exports.read = function(req, res) {
 				date: meeting.date,
 				participants: meeting.participants,
 				lastUpdated: meeting.lastUpdated,
-				availability: meeting.avail
+				availability: availability
 			};
 			res.json(o);
 		}
