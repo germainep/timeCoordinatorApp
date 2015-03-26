@@ -40,6 +40,7 @@ router.route('/meetings/:meeting_id')
 	.delete(meetings.destroy);
 
 router.route('/meetings/:meeting_id/add-availability')
+	// TODO a GET route with a form
 	.post(avail.addAvail);
 
 router.route('/meetings/join/:meeting_id')
