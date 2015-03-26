@@ -36,11 +36,11 @@ function isLoggedIn(req, res, next) {
 // one meeting
 router.route('/meetings/:meeting_id')
 	.get(meetings.read)
-	.put(meetings.update)
+	.post(meetings.update)
 	.delete(meetings.destroy);
 
 router.route('/meetings/:meeting_id/add-availability')
-	.put(avail.addAvail);
+	.post(avail.addAvail);
 
 router.route('/meetings/join/:meeting_id')
 	.post(users.joinMeeting);

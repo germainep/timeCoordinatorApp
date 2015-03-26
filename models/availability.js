@@ -7,6 +7,10 @@ var availabilitySchema = mongoose.Schema({
 	end: Date
 });
 
+availabilitySchema.methods.convertToLocalTZ = function() {
+	// returns the UTC times stored here into local ones.
+} 
+
 
 module.exports = mongoose.model('Availability', availabilitySchema);
 
