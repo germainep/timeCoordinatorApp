@@ -7,7 +7,7 @@ body {
   background:#333 ;
 }
 
-.loginsignup form {
+.loginsignup {
   /* original color #111 changed by Thiago */
   background:#235;
   width:300px;
@@ -19,7 +19,7 @@ body {
   box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
 }
 
-.loginsignup form:after {
+.loginsignup:after {
   content:"";
   display:block;
   position:absolute;
@@ -30,7 +30,7 @@ body {
   top:0;
 }
 
-.loginsignup form:before {
+.loginsignup:before {
   content:"";
   display:block;
   position:absolute;
