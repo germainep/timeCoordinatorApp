@@ -4,4 +4,19 @@ angular.module('timeApp', [
   'UserModule', 
   'MeetingModule', 
   'UserModuleServices', 
-  'MeetingModuleServices']);
+  'MeetingModuleServices'])
+
+  .run(['$state', function($state) {
+    $state.go('upcomingmeetings');
+  }])
+
+  .config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
+    $stateProvider
+      .state('createmeetings', {
+      templateUrl: 'js/modules/meetings/views/create-meeting.html',
+      controller: 'MeetingController'
+    })
+    .state('upcomingmeetings', {
+      templateUrl: 'js/modules/user/views/view-meetings.html'
+    });
+  }]);
