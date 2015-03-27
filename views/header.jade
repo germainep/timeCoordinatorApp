@@ -1,12 +1,13 @@
 extends layout
 
-nav(class="navbar navbar-default")
-  div(class="navbar-header")
-    button(type="button" class="navbar-toggle collapsed")
-    a(class="navbar-brand" href="#")Time Coordinator App
-  div(class="collapse navbar-collapse" id="main-nav"
-    ul
-      li: a(href="#")Thing 1
-      li: a(href="#")Thing 2
-      li: a(href="#")Thing 3
-    p(class="navbar-text") Signed in as #{user.name}
+block header
+  nav(class="navbar navbar-default")
+    div(class="navbar-header")
+      button(type="button" class="navbar-toggle collapsed")
+      a(class="navbar-brand" href="#")Time Coordinator App
+    div(class="collapse navbar-collapse" id="main-nav"
+      ul
+        li: a(href="#")Thing 1
+        li: a(href="#")Thing 2
+        li: a(href="#")Thing 3
+      p(class="navbar-text") Signed in as #{user.name}
