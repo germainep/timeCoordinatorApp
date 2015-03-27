@@ -1,12 +1,12 @@
 block navbar 
-  nav(class="navbar navbar-default")
-    div(class="navbar-header")
-      button(type="button" class="navbar-toggle collapsed")
-      a(class="navbar-brand" href="#") Time Coordinator App
-    div(class="collapse navbar-collapse" id="main-nav")
-      ul(class="nav navbar-nav")
+  nav.navbar.navbar-default
+    div.navbar-header
+      button.navbar-toggle.collapsed(type="button")
+      a.navbar-brand(href="#") Time Coordinator App
+    div.collapse.navbar-collapse(id="main-nav")
+      ul.nav.navbar-nav
         li: a(href="#") Thing 1
         li: a(href="#") Thing 2
         li: a(href="#") Thing 3
       if user
-        p(class="navbar-text") Signed in as #{user.name}
+        p.navbar-text.pull-right Signed in as #{user.name}
