@@ -18,7 +18,7 @@ exports.read = function(req, res) {
 			res.status(404).send("This user does not exist.");
 		} else {
 			var o = {
-				username: user.username,
+				name: user.name,
 				meetings: user.meetings
 			};
 			res.json(o);
@@ -42,13 +42,11 @@ exports.update = function(req, res) {
 				return res.status(400);
 			} else {
 				var o = {
-					username: user.username,
+					name: user.name,
 					meetings: user.meetings
 				};
 				res.json(o);
 			}
-		
-			
 		});
 	});
 };
@@ -96,12 +94,9 @@ exports.joinMeeting = function(req, res) {
 			if (err) {
 				res.sendStatus(500);
 			}
-			var username = req.user.username;
-			res.json({message: username+ " has successfully joined meeting "+ meeting_id});
+			var name = req.user.name;
+			res.json({message: name + " has successfully joined meeting "+ meeting_id});
 		});
 	});
-
-	
-	
 };
 
