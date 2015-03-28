@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-// give access to the auth strategies we wrote in config/passport 
+// give access to the auth strategies we wrote in config/passport
 var passport = require('passport');
 var users = require('../controllers/users');
 
-// Routes for index 
+// Routes for index
 
 router.route('/')
 	.get(function (req, res, next) {
 		res.render('login', {name: req.user });
 	});
 
-// LOCAL strategy sign up 
+// LOCAL strategy sign up
 router.route('/signup')
 	.get(function (req, res) {
 		res.render('signup', {message: req.flash('signupMessage')});
@@ -59,7 +59,7 @@ function isLoggedIn(req, res, next) {
 		return next();
 	}
 	console.log("User is not logged in.");
-	res.redirect('login');
+	res.redirect('/login');
 }
 
 module.exports = router;
