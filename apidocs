@@ -11,7 +11,7 @@ Here's what they can do for you:
 /api/meetings
 
 #GET
-Currently a GET request to /api/meetings returns all of the meetings in the database.
+Currently a GET request to /api/meetings returns all meetings of the logged in user from the database.
 
 Meetings are formatted as a JSON, with the following fields:
 name - String, which contains the meeting name.
