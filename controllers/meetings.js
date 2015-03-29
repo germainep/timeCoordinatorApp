@@ -131,14 +131,9 @@ exports.inviteUsers = function(req, res) {
 };
 
 exports.showInvitePanel = function(req, res) {
-<<<<<<< HEAD
+
 	// the view needs to see which 
 };
-=======
-	// the view needs to see which
-}
->>>>>>> 62bbc3727279dcf97d8fdf1a48e4de8da768e7af
-
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
