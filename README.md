@@ -1,4 +1,6 @@
 # timeCoordinatorApp
+
+[![Join the chat at https://gitter.im/FCCWebCrafts/timeCoordinatorApp](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FCCWebCrafts/timeCoordinatorApp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 An app that helps people across different time zones easily figure out when they are both available. This is a student project from FreeCodeCamp.
 
 # How to Contribute
