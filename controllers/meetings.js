@@ -1,5 +1,5 @@
-/* 
-Properly configure controller 
+/*
+Properly configure controller
 */
 
 
@@ -42,7 +42,7 @@ exports.create = function(req, res) {
 				console.log("User updated.");
 			}
 		});
-		}	
+		}
 	});
 	// now save this meeting itself to the database.
 	meeting.save(function(err) {
@@ -87,7 +87,7 @@ exports.read = function(req, res) {
 	});
 };
 
-// Can also use findByIdAndUpdate  ... 
+// Can also use findByIdAndUpdate  ...
 exports.update = function(req, res) {
 	// update the meeting object
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
@@ -109,15 +109,13 @@ exports.update = function(req, res) {
 				};
 				res.json(o);
 			}
-			
-			
 		});
 	});
-	
+
 };
 // this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
-	Meeting.find(function(err, meetings) {
+	Meeting.find({participants: req.user._id}, function(err, meetings) {
 		if (err) {
 			res.send(404);
 		}
@@ -133,8 +131,13 @@ exports.inviteUsers = function(req, res) {
 };
 
 exports.showInvitePanel = function(req, res) {
+<<<<<<< HEAD
 	// the view needs to see which 
 };
+=======
+	// the view needs to see which
+}
+>>>>>>> 62bbc3727279dcf97d8fdf1a48e4de8da768e7af
 
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
