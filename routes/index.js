@@ -3,18 +3,17 @@ var router = express.Router();
 // give access to the auth strategies we wrote in config/passport
 var passport = require('passport');
 var User = require('../models/user');
-var Meeting = require('../models/meeting');
 var users = require('../controllers/users');
 var meetings = require('../controllers/meetings');
 
-// Routes for index
+// Routes for index 
 
 router.route('/')
 	.get(function (req, res, next) {
 		res.render('login');
 	});
 
-// LOCAL strategy sign up
+// LOCAL strategy sign up 
 router.route('/signup')
 	.get(function (req, res) {
 		res.render('signup', {message: req.flash('signupMessage')});
@@ -50,7 +49,6 @@ router.get('/profile/user', isLoggedIn, function(req, res) {
     res.json(user);
     }
   });
-});
 
 router.get('/profile/edit', isLoggedIn, function(req, res) {
 		res.render('editprofile', {user: req.user});

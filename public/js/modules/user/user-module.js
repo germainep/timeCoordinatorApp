@@ -1,13 +1,14 @@
-angular.module('UserModule', [ ])
-  .controller('UserController', ['$http', '$scope', 'User', function($http, $scope, User) {
-    $http.get('/profile/user')
-    .success(function(data, status, headers, config) {
-      $scope.user = data;
-      $scope.usermeetings = data.meetings;
-      $scope.error = '';
-    })
-    .error(function(data) {
-      $scope.user = {};
-      $scope.error = data;
+angular.module('UserModule', [])
+  .controller('UserController', ['$http', '$scope', 'User', 'Meeting', '$state', '$stateParams', function($http, $scope, User, Meeting, $state, $stateParams) {
+  var ids;
+  var usermeetings 
+  
+    
+    var user = User.get(function(){
+      $scope.user = user;
+      ids = user.meetings
+      var meetings = Meeting.get({id: '55117afe5b8528b0207a9083'});
+      console.log(ids); 
+      console.log(meetings)
     });
   }]);
