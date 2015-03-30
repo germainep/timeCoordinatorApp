@@ -66,23 +66,14 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
+	Meeting.findById(req.params.id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(404);
 		}
 		if (!meeting) {
 			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
-			var o = {
-				name: meeting.name,
-				admin: meeting.admin,
-				description: meeting.description,
-				date: meeting.date,
-				participants: meeting.participants,
-				lastUpdated: meeting.lastUpdated,
-				availability: meeting.avail
-			};
-			res.json(o);
+			res.json(meeting);
 		}
 	});
 };
@@ -115,7 +106,7 @@ exports.update = function(req, res) {
 };
 // this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
-	Meeting.find({participants: req.user._id}, function(err, meetings) {
+  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meetings){
 		if (err) {
 			res.send(404);
 		}

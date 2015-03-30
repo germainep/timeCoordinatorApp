@@ -1,4 +1,4 @@
 div(ng-repeat='usermeeting in usermeetings')
   h3 {{usermeeting.name}}
-  p admin: {{usermeeting.admin}}
+  p admin: {{usermeeting.admin[0].name}}
   p description: {{usermeeting.description}}

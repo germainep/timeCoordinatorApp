@@ -3,6 +3,7 @@ var router = express.Router();
 // give access to the auth strategies we wrote in config/passport
 var passport = require('passport');
 var User = require('../models/user');
+var Meeting = require('../models/meeting');
 var users = require('../controllers/users');
 var meetings = require('../controllers/meetings');
 
@@ -41,10 +42,11 @@ router.route('/profile')
   });
 
 router.get('/profile/user', isLoggedIn, function(req, res) {
-  User.findById(req.user._id).populate('meetings').exec(function(err, user) {
+  User.findById(req.user._id).deepPopulate('meetings.admin meetings.participants').exec(function(err, user) {
     if (err) {
       return res.sendStatus(404);
     } else {
+      console.log(user)
     res.json(user);
     }
   });

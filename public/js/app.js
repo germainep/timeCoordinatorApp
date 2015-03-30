@@ -13,8 +13,7 @@ angular.module('timeApp', [
   .config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
     $stateProvider
       .state('createmeetings', {
-      templateUrl: 'js/modules/meetings/views/create-meeting.html',
-      controller: 'MeetingController'
+      templateUrl: 'js/modules/meetings/views/create-meeting.html'
     })
     .state('upcomingmeetings', {
       templateUrl: 'js/modules/user/views/view-meetings.html'

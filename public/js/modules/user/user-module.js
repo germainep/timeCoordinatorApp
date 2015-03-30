@@ -5,7 +5,6 @@ angular.module('UserModule', [ ])
       $scope.user = data;
       $scope.usermeetings = data.meetings;
       $scope.error = '';
-      console.log(data.meetings)
     })
     .error(function(data) {
       $scope.user = {};

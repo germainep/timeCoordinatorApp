@@ -34,15 +34,15 @@ function isLoggedIn(req, res, next) {
 //	========================
 
 // one meeting
-router.route('/meetings/:meeting_id')
+router.route('/meetings/:id')
 	.get(meetings.read)
 	.put(meetings.update)
 	.delete(meetings.destroy);
 
-router.route('/meetings/:meeting_id/add-availability')
+router.route('/meetings/:id/add-availability')
 	.put(avail.addAvail);
 
-router.route('/meetings/join/:meeting_id')
+router.route('/meetings/join/:id')
 	.post(users.joinMeeting);
 
 // all meetings / multiple meetings
@@ -63,7 +63,7 @@ router.route('/meetings/invite')
 
 // one user profile
 
-router.route('/users/:user_id')
+router.route('/users/:id')
 	// only shows one user, and sanitizes the user information
 	// cannot create or delete users 
 	.get(users.read)
