@@ -14,10 +14,6 @@ exports.addAvail = function(req, res) {
 	// create a new object
 	var avail = new Avail({});
 
-	// create Date objects from the input strings
-	/*avail.start = new Date(req.body.start);
-	avail.end = new Date(req.body.end);*/
-
 	var startTime = moment(req.body.start, "YYYY-MM-DD HH:mm");
 	var endTime = moment(req.body.end, "YYYY-MM-DD HH:mm");
 
@@ -29,17 +25,17 @@ exports.addAvail = function(req, res) {
 	// add it to a meeting
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
-			res.send(err);
+			return res.send(err);
 		}
 		if (!meeting) {
-			res.json({message: "Sorry, this meeting doesn't exist."});
+			return res.sendStatus(500);
 		} else {
 			meeting.availability.push(avail);
 			meeting.save(function(err) {
 				if (err) {
-					res.send(400);
+					res.status(500);
 				} else {
-					res.json(meeting);
+					res.status(200).json(meeting);
 				}
 			});
 		}
