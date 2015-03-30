@@ -1,13 +1,11 @@
 angular.module('MeetingModule', [])
 
-.controller('MeetingController', ['$scope', '$http', function($scope, $http) {
-  $http.get('/api/meetings')
-    .success(function(data, status, headers, config) {
-      $scope.meetings = data;
-      $scope.error = ' ';
-    })
-    .error(function(data, status, header, config) {
-      $scope.meetings = { };
-      $scope.error = data;
-    });
+.controller('MeetingController', ['$scope', '$http', 'Meeting', 'User', function($scope, $http, Meeting, User) {
+  var params = "55117afe5b8528b0207a9083";
+  var meeting = Meeting.get({id: params}, function() {
+   console.log(meeting);
+ });
+  var meetings = Meeting.query(function() {
+    console.log(meetings);
+  });
 }]);
