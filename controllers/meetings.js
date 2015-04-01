@@ -18,9 +18,10 @@ var _ = require('lodash');
  	This will also save the admin field to match the user who created the meeting.
  */
 exports.create = function(req, res) {
-	var meeting = new Meeting({});
-	meeting.name = (req.body.meetingname);
+	var meeting = new Meeting();
+	meeting.name = (req.body.name);
     meeting.description= (req.body.description);
+    meeting.date = (req.body.date);
     
 	// save the creator as the admin
 	meeting.admin.push(req.user._id);
@@ -49,15 +50,8 @@ exports.create = function(req, res) {
 		if (err) {
 			return res.status(400);
 		} else {
-			var o = {
-				id: meeting._id,
-				name: meeting.name,
-				admin: meeting.admin,
-				participants: meeting.participants,
-				description: meeting.description,
-				date: meeting.date
-			};
-			res.json(o);
+			
+			res.json(meeting);
 		}
 	});
 };
@@ -66,7 +60,7 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
+	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(404);
 		}
@@ -77,13 +71,12 @@ exports.read = function(req, res) {
 		}
 	});
 };
-
 // Can also use findByIdAndUpdate  ...
 exports.update = function(req, res) {
 	// update the meeting object
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
-			res.send(404);
+			return res.send(404);
 		}
 		meeting = _.assign(meeting, req.body);
 		meeting.lastUpdated = Date.now();
@@ -106,9 +99,9 @@ exports.update = function(req, res) {
 };
 // this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
-  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meetings){
+  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability', 'name').exec(function(err, meetings){
 		if (err) {
-			res.send(404);
+			return res.send(404);
 		}
 		res.json(meetings);
 	});
@@ -129,7 +122,7 @@ exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
 			if (err) {
-				res.send(500);
+				return res.send(500);
 			}
 			res.send("Meeting with id: "+meeting._id+" is removed.");
 		});
