@@ -1,0 +1,8 @@
+div
+  h3 {{singlemeeting.name}}
+  p {{singlemeeting.date}}
+  p Admin: {{singlemeeting.admin[0].name}}
+  p {{singlemeeting.description}}
+  ul(ng-repeat='participant in participants') Participants:
+    li {{participant.name}}
+  

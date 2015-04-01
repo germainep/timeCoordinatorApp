@@ -1,28 +1,32 @@
-angular.module('timeApp', [
+angular.module('TimeCoordinator', [
   'ui.router', 
-  'ngResource', 
-  'UserModule', 
-  'MeetingModule', 
-  'UserModuleServices', 
-  'MeetingModuleServices'])
+  'ngResource',
+  'TimeCoordinator.Users',
+  'TimeCoordinator.Meetings'
+])
+.run(['$state', function($state) {
+  $state.go('upcomingmeetings');
+}])
 
-  .run(['$state', function($state) {
-    $state.go('upcomingmeetings');
-  }])
-
-  .config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
-    $stateProvider
-      .state('createmeetings', {
-      templateUrl: 'js/modules/meetings/views/create-meeting.html'
-    })
+.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
+  $stateProvider
     .state('upcomingmeetings', {
-      url: '/meetings',
-      templateUrl: 'js/modules/user/views/view-meetings.html'
+    url: '/meetings',
+    templateUrl: '/js/meetings/views/view-meetings.html',
+    controller: 'MeetingController',
+    params: {
+      updated: false
+    }
     })
     .state('singlemeeting', {
-      url: '/meetings/:id',
-      templateUrl: 'js/modules/meetings/views/single-meeting.html'
-      
-    });
-
-  }]);
+    url: '/meetings/:id',
+    templateUrl: '/js/meetings/views/single-meeting.html',
+    controller: 'SingleMeetingController'
+    
+  })
+  .state('createmeetings', {
+    url: '/meeting/create',
+    templateUrl: '/js/meetings/views/create-meeting.html',
+    controller: 'CreateMeetingController'
+  });
+}]);
