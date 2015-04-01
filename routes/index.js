@@ -37,18 +37,9 @@ router.route('/login')
 
 router.route('/profile')
   .get(isLoggedIn, function (req, res) {
-    res.render('profile', {user: req.user});
+  res.render('profile', {user: req.user});
   });
 
-router.get('/profile/user', isLoggedIn, function(req, res) {
-  User.findById(req.user._id).deepPopulate('meetings.admin meetings.participants').exec(function(err, user) {
-    if (err) {
-      return res.sendStatus(404);
-    } else {
-      console.log(user)
-    res.json(user);
-    }
-  });
 
 router.get('/profile/edit', isLoggedIn, function(req, res) {
 		res.render('editprofile', {user: req.user});
