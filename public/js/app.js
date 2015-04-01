@@ -2,7 +2,8 @@ angular.module('TimeCoordinator', [
   'ui.router', 
   'ngResource',
   'TimeCoordinator.Users',
-  'TimeCoordinator.Meetings'
+  'TimeCoordinator.Meetings',
+  'TimeCoordinator.directives'
 ])
 .run(['$state', function($state) {
   $state.go('upcomingmeetings');

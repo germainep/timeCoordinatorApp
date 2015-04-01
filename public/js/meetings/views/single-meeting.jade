@@ -1,5 +1,6 @@
 div
-  h3 {{singlemeeting.name}}
+  button.btn(ng-click="toggleEditMode()") {{editmode ? 'Disable Editing' : 'Enable Editing'}}
+  h3(ng-model='singlemeeting.name' ng-attr-contenteditable='{{editmode}}') {{singlemeeting.name}}
   p {{singlemeeting.date}}
   p Admin: {{singlemeeting.admin[0].name}}
   p {{singlemeeting.description}}

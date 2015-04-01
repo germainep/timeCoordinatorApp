@@ -8,6 +8,11 @@ angular.module('TimeCoordinator.Meetings', [])
     $scope.deleteMeeting = function(meeting) {
       if(popupService.showPopup('Really delete this?')){
         meeting.$delete(function(){
+          for (var i in $scope.meetings) {
+            if ($scope.meetings[i] === meeting) {
+              $scope.meetings.splice(i, 1);
+            }
+          }
           $state.go('upcomingmeetings', undefined, {updated: true});
         });
       }
@@ -20,9 +25,21 @@ angular.module('TimeCoordinator.Meetings', [])
 .controller('SingleMeetingController', ['$scope', '$stateParams', 'Meetings', function($scope, $stateParams, Meetings) {
   Meetings.get({id: $stateParams.id}, function(data){
     $scope.singlemeeting = data;
-    console.log(data.participants);
     $scope.participants = data.participants;
   });
+  $scope.editmode = false;
+  $scope.toggleEditMode = function(){
+    $scope.editmode = $scope.editmode === false ? true: false;
+    if($scope.editmode === false){
+    }
+  };
+  $scope.update = function(meeting) {
+    meeting.$update(function() {
+      
+    }, function(errorResponse) {
+      $scope.error = errorResponse.data.message;
+    });
+  };
 }])
 
 .controller('CreateMeetingController', ['$scope', '$state', 'Meetings', function($scope, $state, Meetings){
@@ -34,4 +51,5 @@ angular.module('TimeCoordinator.Meetings', [])
       $state.go('upcomingmeetings');
     });
   };
-}]);
+}])
+.controller('UpdateMeetingController', ['$scope', '']);
