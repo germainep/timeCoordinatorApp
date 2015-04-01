@@ -1,3 +1,4 @@
+/*jshint node: true*/
 // load environment variables
 require('dotenv').load();
 
@@ -27,7 +28,7 @@ var app = express();
 // ======= database connection ======
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
-db = mongoose.connection;
+var db = mongoose.connection;
 
 // confirmation and error messaging
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -38,7 +39,7 @@ db.once('open', function (callback) {
 app.use(session({ secret: 'FCC is the best',
   resave: false,
   saveUninitialized: false,
-  cookie: {maxAge: 30000},
+  cookie: {maxAge: 60000* 30},
   store: new mongoStore({mongooseConnection: mongoose.connection})
                 })); // session secret
 
@@ -64,7 +65,9 @@ app.use(cookieParser());
 
 // static assets served from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use("/partials", function (req, res) {
+  res.render(req.path);
+});
 app.use('/', routes);
 app.use('/auth', auth);
 app.use('/api', api);
