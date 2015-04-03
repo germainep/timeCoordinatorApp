@@ -94,7 +94,7 @@ exports.update = function(req, res) {
 };
 // this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
-  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability', 'name').exec(function(err, meetings){
+  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meetings){
 		if (err) {
 			return res.send(404);
 		}
