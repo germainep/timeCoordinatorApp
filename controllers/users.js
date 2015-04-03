@@ -44,7 +44,7 @@ exports.update = function(req, res) {
 };
 
 exports.editProfile = function(req, res) {
-  User.findOne({user_id: req.user})
+  User.findOne({_id: req.user})
   .exec(function(err, user) {
     user.set('name', req.body.name);
     user.set('local.email', req.body.email);
