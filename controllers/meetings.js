@@ -84,7 +84,7 @@ exports.update = function(req, res) {
 		  meeting.lastUpdated = Date.now();
 		meeting.save(function(err) {
 			if (err) {
-				return res.send(err);
+				return res.status(500);
 			} else {
 				res.json(meeting);
 			}
