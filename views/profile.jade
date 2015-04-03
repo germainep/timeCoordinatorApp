@@ -6,7 +6,7 @@ block content
   h2 Hello #{user.name}!
   a(href="/logout") Log out
   .row
-    .col-md-4.display-box
+    .col-md-4.display-box(ng-controller='UserController')
         h3 Your Information
         #{message}
         .inset

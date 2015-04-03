@@ -1,7 +1,7 @@
 /*
 Properly configure controller
 */
-
+/*jshint node: true*/
 
 'use strict';
 
@@ -60,7 +60,7 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability', 'username').exec(function(err, meeting) {
+	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(404);
 		}
@@ -78,20 +78,15 @@ exports.update = function(req, res) {
 		if (err) {
 			return res.send(404);
 		}
-		meeting = _.assign(meeting, req.body);
-		meeting.lastUpdated = Date.now();
+          meeting.name = (req.body.name);
+          meeting.description= (req.body.description);
+          meeting.date = (req.body.date);
+		  meeting.lastUpdated = Date.now();
 		meeting.save(function(err) {
 			if (err) {
-				return res.status(400);
+				return res.send(err);
 			} else {
-				var o = {
-					name: meeting.name,
-					id: meeting._id,
-					description: meeting.description,
-					participants: meeting.participants,
-					lastUpdated: meeting.lastUpdated
-				};
-				res.json(o);
+				res.json(meeting);
 			}
 		});
 	});

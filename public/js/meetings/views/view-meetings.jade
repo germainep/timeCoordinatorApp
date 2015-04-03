@@ -3,5 +3,5 @@ div(ng-repeat='meeting in meetings')
     h3: a(ui-sref='singlemeeting({id: meeting._id})') {{meeting.name}}
     p admin: {{meeting.admin[0].name}}
     p description: {{meeting.description}}
-    p date: {{meeting.date | date: 'MMM d, y'}}
+    p date: {{meeting.date | date: 'd MMM y'}}
   a.pull-right.btn.btn-danger(ng-click='deleteMeeting(meeting)') Delete

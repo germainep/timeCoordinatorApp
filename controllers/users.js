@@ -26,7 +26,7 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
 	// update the user object
 	console.log("hitting the put function");
-	User.findById(req.params.user_id).select('name meetings').exec(function(err, user) {
+	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
 			res.sendStatus(404);
 		}
