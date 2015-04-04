@@ -9,7 +9,7 @@ var meetingSchema = mongoose.Schema({
 	description: String,
 	date: Date,
 	participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-	avail: [{ type: Schema.Types.Mixed}]
+	availability: [{ type: Schema.Types.Mixed}]
 });
 
 meetingSchema.plugin(deepPopulate);

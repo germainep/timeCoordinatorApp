@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
 var User = require('../models/user');
 var _ = require('lodash');
+var moment = require('moment-timezone');
 
 /**
  * Create a meeting
@@ -29,6 +30,7 @@ exports.create = function(req, res) {
 
 	// also save the creator as a participant of the meeting
 	meeting.participants.push(req.user._id);
+	meeting.availability = [];
 
 	// and save this meeting id to the user's meetings array
 	User.findById(req.user._id, function(err, user) {
@@ -38,9 +40,10 @@ exports.create = function(req, res) {
 		user.meetings.push(meeting._id);
 		user.save(function(err) {
 			if (err) {
-				return res.status(400);
+				return res.status(500);
 			} else {
 				console.log("User updated.");
+				return res.status(200);
 			}
 		});
 		}
@@ -48,7 +51,7 @@ exports.create = function(req, res) {
 	// now save this meeting itself to the database.
 	meeting.save(function(err) {
 		if (err) {
-			return res.status(400);
+			return res.status(500);
 		} else {
 			
 			res.json(meeting);
@@ -62,7 +65,7 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
 	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meeting) {
 		if (err) {
-			return res.sendStatus(404);
+			return res.sendStatus(500);
 		}
 		if (!meeting) {
 			return res.sendStatus(404).send("This meeting does not exist.");
@@ -76,7 +79,7 @@ exports.update = function(req, res) {
 	// update the meeting object
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
-			return res.send(404);
+			return res.send(500);
 		}
           meeting.name = (req.body.name);
           meeting.description= (req.body.description);
@@ -92,14 +95,18 @@ exports.update = function(req, res) {
 	});
 
 };
-// this lists all meetings - should have some sort of filtering available.
+
+// this lists all meetings that the user is a part of
 exports.list = function(req, res) {
   Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meetings){
 		if (err) {
+			return res.send(500);
+		} 
+		if (!meetings) {
 			return res.send(404);
 		}
-		res.json(meetings);
-	});
+		return res.status(200).json(meetings);
+	})
 };
 
 exports.inviteUsers = function(req, res) {
@@ -110,6 +117,8 @@ exports.inviteUsers = function(req, res) {
 };
 
 exports.showInvitePanel = function(req, res) {
+	// TODO for email invite
+}
 
 	// the view needs to see which 
 };
@@ -117,11 +126,9 @@ exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
 			if (err) {
-				return res.send(500);
+				return res.sendStatus(500);
 			}
-			res.send("Meeting with id: "+meeting._id+" is removed.");
+			res.status(200).send("Meeting with id: "+meeting._id+" is removed.");
 		});
 	});
 };
-
-// authentication to see meetings?
