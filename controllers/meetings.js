@@ -1,7 +1,7 @@
-/* 
-Properly configure controller 
+/*
+Properly configure controller
 */
-
+/*jshint node: true*/
 
 'use strict';
 
@@ -18,9 +18,11 @@ var _ = require('lodash');
  	This will also save the admin field to match the user who created the meeting.
  */
 exports.create = function(req, res) {
-	var meeting = new Meeting({});
-	meeting = _.assign(meeting, req.body);
-
+	var meeting = new Meeting();
+	meeting.name = (req.body.name);
+    meeting.description= (req.body.description);
+    meeting.date = (req.body.date);
+    
 	// save the creator as the admin
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
@@ -41,22 +43,15 @@ exports.create = function(req, res) {
 				console.log("User updated.");
 			}
 		});
-		}	
+		}
 	});
 	// now save this meeting itself to the database.
 	meeting.save(function(err) {
 		if (err) {
 			return res.status(400);
 		} else {
-			var o = {
-				id: meeting._id,
-				name: meeting.name,
-				admin: meeting.admin,
-				participants: meeting.participants,
-				description: meeting.description,
-				date: meeting.date
-			};
-			res.json(o);
+			
+			res.json(meeting);
 		}
 	});
 };
@@ -65,63 +60,46 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
-	Meeting.findById(req.params.meeting_id).populate('admin participants', 'username -_id').populate('availability', 'username').exec(function(err, meeting) {
+	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(404);
 		}
 		if (!meeting) {
 			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
-			var o = {
-				name: meeting.name,
-				admin: meeting.admin,
-				description: meeting.description,
-				date: meeting.date,
-				participants: meeting.participants,
-				lastUpdated: meeting.lastUpdated,
-				availability: meeting.avail
-			};
-			res.json(o);
+			res.json(meeting);
 		}
 	});
 };
-
-// Can also use findByIdAndUpdate  ... 
+// Can also use findByIdAndUpdate  ...
 exports.update = function(req, res) {
 	// update the meeting object
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
-			res.send(404);
+			return res.send(404);
 		}
-		meeting = _.assign(meeting, req.body);
-		meeting.lastUpdated = Date.now();
+          meeting.name = (req.body.name);
+          meeting.description= (req.body.description);
+          meeting.date = (req.body.date);
+		  meeting.lastUpdated = Date.now();
 		meeting.save(function(err) {
 			if (err) {
-				return res.status(400);
+				return res.status(500);
 			} else {
-				var o = {
-					name: meeting.name,
-					id: meeting._id,
-					description: meeting.description,
-					participants: meeting.participants,
-					lastUpdated: meeting.lastUpdated
-				};
-				res.json(o);
+				res.json(meeting);
 			}
-			
-			
 		});
 	});
-	
+
 };
 // this lists all meetings - should have some sort of filtering available.
 exports.list = function(req, res) {
-	Meeting.find(function(err, meetings) {
+  Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meetings){
 		if (err) {
-			res.send(404);
+			return res.send(404);
 		}
 		res.json(meetings);
-	})
+	});
 };
 
 exports.inviteUsers = function(req, res) {
@@ -129,21 +107,21 @@ exports.inviteUsers = function(req, res) {
 	// should also show which users are already invited
 
 	// each user will get an email sent to them with an invitation
-}
+};
 
 exports.showInvitePanel = function(req, res) {
-	// the view needs to see which 
-}
 
+	// the view needs to see which 
+};
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
 			if (err) {
-				res.send(500);
+				return res.send(500);
 			}
 			res.send("Meeting with id: "+meeting._id+" is removed.");
 		});
 	});
-}
+};
 
 // authentication to see meetings?

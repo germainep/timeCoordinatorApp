@@ -1,3 +1,4 @@
+/*jshint node: true*/
 'use strict';
 
 var mongoose = require('mongoose');
@@ -10,18 +11,14 @@ var _ = require('lodash');
  * 	(i.e. does not show passwords or sensitive data)
  */
 exports.read = function(req, res) {
-	User.findById(req.params.user_id, function(err, user) {
+	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
-			res.send(404)
+			return res.status(404);
 		}
 		if (!user) {
-			res.status(404).send("This user does not exist.");
+			return res.status(404).send("This user does not exist.");
 		} else {
-			var o = {
-				username: user.username,
-				meetings: user.meetings
-			};
-			res.json(o);
+			res.json(user);
 		}
 	});
 };
@@ -30,7 +27,7 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
 	// update the user object
 	console.log("hitting the put function");
-	User.findById(req.params.user_id, function(err, user) {
+	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
 			res.sendStatus(404);
 		}
@@ -41,14 +38,8 @@ exports.update = function(req, res) {
 			if (err) {
 				return res.status(400);
 			} else {
-				var o = {
-					username: user.username,
-					meetings: user.meetings
-				};
-				res.json(o);
+				res.json(user);
 			}
-		
-			
 		});
 	});
 };
@@ -57,7 +48,7 @@ exports.editProfile = function(req, res) {
   User.findOne({_id: req.user})
   .exec(function(err, user) {
     user.set('name', req.body.name);
-    user.set('email', req.body.email);
+    user.set('local.email', req.body.email);
     user.save(function(err) {
       if(err){
         res.session.error =err;
@@ -96,12 +87,9 @@ exports.joinMeeting = function(req, res) {
 			if (err) {
 				res.sendStatus(500);
 			}
-			var username = req.user.username;
-			res.json({message: username+ " has successfully joined meeting "+ meeting_id});
+			var name = req.user.name;
+			res.json({message: name + " has successfully joined meeting "+ meeting_id});
 		});
 	});
-
-	
-	
 };
 
