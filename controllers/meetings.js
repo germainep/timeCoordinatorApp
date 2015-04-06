@@ -23,7 +23,7 @@ exports.create = function(req, res) {
 	meeting.name = (req.body.name);
     meeting.description= (req.body.description);
     meeting.date = (req.body.date);
-    
+
 	// save the creator as the admin
 	meeting.admin.push(req.user._id);
 	meeting.lastUpdated = Date.now();
@@ -53,7 +53,7 @@ exports.create = function(req, res) {
 		if (err) {
 			return res.status(500);
 		} else {
-			
+
 			res.json(meeting);
 		}
 	});
@@ -63,6 +63,9 @@ exports.create = function(req, res) {
  * Shows ONE meeting
  */
 exports.read = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
+        return res.status(400).send("Invalid Meeting Id.");
+    }
 	Meeting.findById(req.params.meeting_id).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meeting) {
 		if (err) {
 			return res.sendStatus(500);
@@ -76,6 +79,9 @@ exports.read = function(req, res) {
 };
 // Can also use findByIdAndUpdate  ...
 exports.update = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
+        return res.status(400).send("Invalid Meeting Id.");
+    }
 	// update the meeting object
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		if (err) {
@@ -101,7 +107,7 @@ exports.list = function(req, res) {
   Meeting.find({participants: req.user._id}).populate('admin participants', 'name -_id').populate('availability').exec(function(err, meetings){
 		if (err) {
 			return res.send(500);
-		} 
+		}
 		if (!meetings) {
 			return res.send(404);
 		}
@@ -118,11 +124,12 @@ exports.inviteUsers = function(req, res) {
 
 exports.showInvitePanel = function(req, res) {
 	// TODO for email invite
-}
-
-	// the view needs to see which 
 };
+
 exports.destroy = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
+        return res.status(400).send("Invalid Meeting Id.");
+    }
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
 			if (err) {
