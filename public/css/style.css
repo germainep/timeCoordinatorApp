@@ -21,24 +21,28 @@
 body {
   font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   color:white;
-  font-size:12px;
+  font-size:1.6em;
   background:#333;
+  background: url('/img/map.jpg')
 }
 
-form {
+h2{
+  color: #333;
+}
+
+.loginsignup {
   /* original color #111 changed by Thiago */
   background:#235;
   width:300px;
-  height: 500px;
   margin:30px auto;
   border-radius:0.4em;
   border:1px solid #191919;
   overflow:hidden;
   position:relative;
-  box-shadow: 0 25px 10px 10px rgba(0,0,0,0.6);
+  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
 }
 
-form:after {
+.loginsignup:after {
   content:"";
   display:block;
   position:absolute;
@@ -49,7 +53,7 @@ form:after {
   top:0;
 }
 
-form:before {
+.loginsignup:before {
   content:"";
   display:block;
   position:absolute;
@@ -98,13 +102,16 @@ label {
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email],
+input[type=date],
+textarea{
   color: white;
   width:100%;
   padding:8px 5px;
   background:linear-gradient(#1f2124, #27292c);
   border:1px solid #222;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.1);   
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-radius:0.3em;
   margin-bottom:20px;
 }
@@ -120,30 +127,43 @@ input[type=checkbox] {
   vertical-align:bottom;
 }
 
-.p-container:after {
-  clear:both;
-  display:table;
-  content:"";
+.logonbtn {
+  padding: 10px 10px;
+  text-align: center;
+  width: 100%;
+  border:1px solid rgba(0,0,0,0.4);
+  text-shadow:0 -1px 0 rgba(0,0,0,0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 10px 10px rgba(255,255,255,0.1);
+  border-radius:0.3em;
+  color:white;
+  float:center;
+  font-weight:bold;
+  font-size:13px;
 }
 
-.userlogin {
-  padding:0 10px 25px 10px;	
+.logonbtn a{
+  color: whitesmoke;
 }
 
-.facebooklog {
-  padding: 0 10px 10px 10px;
+#tweetlog{
+  background: #777;
 }
 
-.googlelog {
-  padding: 0 10px 10px 10px;
+#facebooklog{
+  background: #3b5998;
 }
 
-.yahoolog {
-  padding: 0 10px 10px 10px;
+#googlelog{
+  background: #D50F25;
+  color: aliceblue;
 }
+
 .forgotpassword {
   padding: 0 10px 10px 10px;
 }
+
 input[type=submit] {
   padding:5px 20px;
   border:1px solid rgba(0,0,0,0.4);
@@ -174,3 +194,40 @@ label:hover ~ input[type=text],
 label:hover ~ input[type=password] {
   background:#27292c;
 }
+
+.p-container {
+  padding:0 20px;
+}
+
+.p-container:after {
+  clear:both;
+  display:table;
+}
+
+.p-container span {
+  display:block;
+  float:left;
+  color:#0d93ff;
+  padding-top:8px;
+  text-align: center;
+}
+
+.p-container span a{
+  margin: 5px 10px;
+}
+
+.display-box{
+  background: #235;
+  border-radius: 0.4em;
+  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
+  padding: 10px;
+
+}
+.display-box a{
+  padding-right: 5px;
+}
+
+/*
+.states form {
+  background: #eee;
+}*/
