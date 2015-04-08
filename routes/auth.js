@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-/* Authentication Routes */
+/* Authentication Routes: First login */
 
 // LOCAL strategy
 
@@ -29,7 +29,17 @@ router.get('/google/callback', passport.authenticate('google', {
 	failureRedirect: '/login'
 }));
 
+/*Authorization, Already Logged In/ Connect to current account*/
 
+//Facebook-----------------------
+
+router.get('/connect/facebook', passport.authorize('facebook', {scope: 'email'}));
+
+router.get('/connect/facebook/callback',
+          passport.authorize('facebook', { 
+            successRedirect: '/profile',
+            failureRedirect: '/'
+          }));
 
 
 

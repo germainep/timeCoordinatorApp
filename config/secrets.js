@@ -16,7 +16,8 @@ module.exports = {
 	facebook: {
 		clientID        : process.env.FACEBOOK_ID,
         clientSecret    : process.env.FACEBOOK_SECRET,
-        callbackURL     : '/auth/facebook/callback'
+        callbackURL     : '/auth/facebook/callback',
+        passReqToCallback: true
 	},
 	google: {
 		clientID        : process.env.GOOGLE_ID,

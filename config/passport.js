@@ -30,7 +30,7 @@ module.exports = function(passport) {
 		passReqToCallback: true
 	},
 	function (req, email, password, done) {
-		process.nextTick(function() {
+		//process.nextTick(function() {
 			// does this user already exist?
 			User.findOne({ 'local.email' : email}, function (err, user) {
 				if (err) 
@@ -52,7 +52,7 @@ module.exports = function(passport) {
 					});
 				}
 			});
-		});
+		//});
 	}));
 
 	passport.use('local-login', new LocalStrategy({
@@ -115,10 +115,12 @@ module.exports = function(passport) {
 			});
 		});
 	}));
-
+    //============================
 	// facebook login strategy
+    //============================
 	passport.use(new FacebookStrategy(secrets.facebook, function(token, refreshToken, profile, done) {
 		process.nextTick(function() {
+          if(!req.user){
 			User.findOne({ 'facebook.id' : profile.id }, function (err, user) {
 				if (err) 
 					return done(err);
@@ -138,6 +140,22 @@ module.exports = function(passport) {
                     });
 				}
 			});
+          } else {
+            // user already exist pull the user from session
+            var user = req.user;
+          //update the current users facebook info
+            user.facebook.id = profile.id;
+            user.facebook.token = token;
+            user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+            user.facebook.email = profile.emails[0].value;
+            
+            //save the user
+            user.save(function(err) {
+              if(err)
+                throw err;
+              return done(null, user);
+            });
+          }
 		});
 	}));
 
