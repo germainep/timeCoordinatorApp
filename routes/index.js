@@ -7,11 +7,16 @@ var users = require('../controllers/users');
 var meetings = require('../controllers/meetings');
 
 // Routes for index 
-
 router.route('/')
 	.get(function (req, res, next) {
 		res.render('login');
 	});
+
+//making the jade partials for angular views display
+router.get('/partials/:name', function(req, res) {
+  var name = req.params.name;
+  res.render('partials/' + name);
+});
 
 // LOCAL strategy sign up 
 router.route('/signup')
@@ -59,5 +64,4 @@ function isLoggedIn(req, res, next) {
 	console.log("User is not logged in.");
 	res.redirect('/login');
 }
-
 module.exports = router;

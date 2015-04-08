@@ -13,7 +13,7 @@ angular.module('TimeCoordinator', [
   $stateProvider
     .state('upcomingmeetings', {
     url: '/meetings',
-    templateUrl: '/js/meetings/views/view-meetings.html',
+    templateUrl: 'partials/viewmeetings.jade',
     controller: 'MeetingController',
     params: {
       updated: false
@@ -21,13 +21,13 @@ angular.module('TimeCoordinator', [
     })
     .state('singlemeeting', {
     url: '/meetings/:id',
-    templateUrl: '/js/meetings/views/single-meeting.html',
+    templateUrl: 'partials/singlemeeting.jade',
     controller: 'SingleMeetingController'
     
   })
   .state('createmeetings', {
     url: '/meeting/create',
-    templateUrl: '/js/meetings/views/create-meeting.html',
+    templateUrl: '/partials/createmeeting.jade',
     controller: 'CreateMeetingController'
   });
 }]);
