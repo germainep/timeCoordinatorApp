@@ -23,16 +23,16 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
 	failureRedirect: '/login'
 }));
 
-router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile']}));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email']}));
 router.get('/google/callback', passport.authenticate('google', {
 	successReturnToOrRedirect: '/profile',
 	failureRedirect: '/login'
 }));
 
-/*Authorization, Already Logged In/ Connect to current account*/
-
+//==========================================
+//Authorization, Already Logged In/ Connect to current account
+//==========================================
 //Facebook-----------------------
-
 router.get('/connect/facebook', passport.authorize('facebook', {scope: 'email'}));
 
 router.get('/connect/facebook/callback',
@@ -41,6 +41,52 @@ router.get('/connect/facebook/callback',
             failureRedirect: '/'
           }));
 
+//Twitter---------------
+router.get('/connect/twitter', passport.authorize('twitter', {scope: 'email'}));
 
+router.get('/connect/twitter/callback',
+           passport.authorize('twitter', { 
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}));
+
+//Google---------------
+router.get('/connect/google', passport.authorize('google', {scope: ['profile', 'email']}));
+
+router.get('/connect/google/callback',
+           passport.authorize('google', { 
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}));
+
+//=====================
+// Unlink connected account
+//=====================
+
+//Facebook------------
+router.get('/unlink/facebook', function(req, res) {
+  var user = req.user;
+  user.facebook.token = undefined;
+  user.save(function(err){
+    res.redirect('/profile');
+  });
+});
+
+//Twitter-------------
+router.get('/unlink/twitter', function(req, res) {
+  var user = req.user;
+  user.twitter.token = undefined;
+  user.save(function(err){
+    res.redirect('/profile');
+  });
+});
+
+router.get('/unlink/google', function(req, res) {
+  var user = req.user;
+  user.google.token = undefined;
+  user.save(function(err){
+    res.redirect('/profile');
+  });
+});
 
 module.exports = router;

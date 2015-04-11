@@ -25,7 +25,7 @@ router.route('/signup')
 	})
 	.post(passport.authenticate('local-signup', {
 		successReturnToOrRedirect: 'profile',
-		failureRedirect: 'signup',
+		failureRedirect: '/signup',
 		failureFlash: true
 	}));
 
@@ -34,8 +34,8 @@ router.route('/login')
 		res.render('login', {title: 'Login', message: req.flash('loginMassage')});
 	})
 	.post(passport.authenticate('local-login', {
-		successReturnToOrRedirect: 'profile',
-		failureRedirect: 'login',
+		successReturnToOrRedirect: '/profile',
+		failureRedirect: '/login',
 		failureFlash: true
 	}));
 

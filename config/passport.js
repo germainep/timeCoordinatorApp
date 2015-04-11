@@ -30,7 +30,7 @@ module.exports = function(passport) {
 		passReqToCallback: true
 	},
 	function (req, email, password, done) {
-		//process.nextTick(function() {
+		process.nextTick(function() {
 			// does this user already exist?
 			User.findOne({ 'local.email' : email}, function (err, user) {
 				if (err) 
@@ -52,7 +52,7 @@ module.exports = function(passport) {
 					});
 				}
 			});
-		//});
+		});
 	}));
 
 	passport.use('local-login', new LocalStrategy({
@@ -85,14 +85,11 @@ module.exports = function(passport) {
 	*
 	*/
 
-	passport.use(new TwitterStrategy({
-		consumerKey: secrets.twitter.consumerKey,
-		consumerSecret: secrets.twitter.consumerSecret,
-		callbackURL: secrets.twitter.callbackURL
-	},
-	function(token, tokenSecret, profile, done) {
+  passport.use(new TwitterStrategy(secrets.twitter, function(req, token, tokenSecret, profile, done) {
 		process.nextTick(function() {
-			User.findOne({ 'twitter.id' : profile.id }, function (err, user) {
+          if(!req.user) {
+            console.log(req.user);
+            User.findOne({ 'twitter.id' : profile.id }, function (err, user) {
 				if (err)
 					return done(err);
 				// if the user already exists, log them in
@@ -113,12 +110,27 @@ module.exports = function(passport) {
 					});
 				}
 			});
+          } else{
+            // user already exist pull the user from session
+            var user = req.user;
+            //update the current users facebook info
+            user.twitter.id = profile.id;
+            user.twitter.token = token;
+            user.twitter.username = profile.username;
+            user.twitter.displayName = profile.displayName;
+            //save the user
+            user.save(function(err) {
+              if(err)
+                throw err;
+              return done(null, user);
+            });
+          }
 		});
 	}));
     //============================
 	// facebook login strategy
     //============================
-	passport.use(new FacebookStrategy(secrets.facebook, function(token, refreshToken, profile, done) {
+	passport.use(new FacebookStrategy(secrets.facebook, function(req, token, refreshToken, profile, done) {
 		process.nextTick(function() {
           if(!req.user){
 			User.findOne({ 'facebook.id' : profile.id }, function (err, user) {
@@ -158,38 +170,51 @@ module.exports = function(passport) {
           }
 		});
 	}));
+  //==================
+  //Google Login Strategy
+  //==================
 
 	passport.use(new GoogleStrategy(secrets.google,
-    function(token, refreshToken, profile, done) {
-
+    function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
-        	console.log("profile: "+JSON.stringify(profile));
-            User.findOne({ 'google.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
-
-                if (user) {
-
-                    // if a user is found, log them in
-                    return done(null, user);
-                } else {
-                    // if the user isn't in our database, create a new user
-                    var newUser          = new User();
-
-                    // set all of the relevant information
-                    newUser.google.id    = profile.id;
-                    newUser.google.token = token;
-                    newUser.google.name  = profile.displayName;
-                    newUser.google.email = profile.emails[0].value; 
-
-                    // save the user
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
+        	if(!req.user){
+              User.findOne({ 'google.id' : profile.id }, function(err, user) {
+                  if (err)
+                      return done(err);
+                  if (user) {
+                      // if a user is found, log them in
+                      return done(null, user);
+                  } else {
+                      // if the user isn't in our database, create a new user
+                      var newUser          = new User();
+                      // set all of the relevant information
+                      newUser.google.id    = profile.id;
+                      newUser.google.token = accessToken;
+                      newUser.google.name  = profile.displayName;
+                      newUser.google.email = profile.emails[0].value; 
+                      // save the user
+                      newUser.save(function(err) {
+                          if (err)
+                              throw err;
+                          return done(null, newUser);
+                      });
+                  }
+              });
+            } else{
+              // user already exist pull the user from session
+              var user = req.user;
+              //update the current users facebook info
+              user.google.id = profile.id;
+              user.google.token = accessToken;
+              user.google.name = profile.displayName;
+              user.google.email = profile.emails[0].value;
+              //save the user
+              user.save(function(err) {
+                if(err)
+                  throw err;
+                return done(null, user);
+              });
+            }
         });
 
     }));
