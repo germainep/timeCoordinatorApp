@@ -65,9 +65,6 @@ app.use(cookieParser());
 
 // static assets served from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use("/partials", function (req, res) {
-  res.render(req.path);
-});
 app.use('/', routes);
 app.use('/auth', auth);
 app.use('/api', api);

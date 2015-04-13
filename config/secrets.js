@@ -16,11 +16,19 @@ module.exports = {
 	facebook: {
 		clientID        : process.env.FACEBOOK_ID,
         clientSecret    : process.env.FACEBOOK_SECRET,
-        callbackURL     : '/auth/facebook/callback'
+        callbackURL     : '/auth/facebook/callback',
+        passReqToCallback: true
 	},
 	google: {
 		clientID        : process.env.GOOGLE_ID,
         clientSecret    : process.env.GOOGLE_SECRET,
-        callbackURL     : '/auth/google/callback'
-	}
+        callbackURL     : '/auth/google/callback',
+        passReqToCallback: true
+	},
+  github: {
+    clientID: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+    callbackURL: '/auth/github/callback',
+    passReqToCallback: true
+  }
 };

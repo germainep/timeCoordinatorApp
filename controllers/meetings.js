@@ -112,7 +112,7 @@ exports.list = function(req, res) {
 			return res.send(404);
 		}
 		return res.status(200).json(meetings);
-	})
+	});
 };
 
 exports.inviteUsers = function(req, res) {

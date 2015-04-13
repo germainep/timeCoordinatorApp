@@ -20,14 +20,22 @@ var userSchema = mongoose.Schema({
 		id: String,
 		token: String,
 		displayName: String,
-		userName: String
+		username: String
 	},
 	google: {
 		id: String, 
 		token: String,
 		email: String,
 		name: String
-	}
+	},
+    github: {
+      id: String,
+      token: String,
+      displayName: String,
+      username: String,
+      profileUrl: String,
+      email: String
+    }
 });
 
 userSchema.methods.generateHash = function(password) {
