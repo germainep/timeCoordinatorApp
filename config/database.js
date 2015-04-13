@@ -1,4 +1,4 @@
 // database configuration module
 module.exports = {
-	url: 'mongodb://localhost/test'
+	url: 'mongodb://localhost/meetingApp'
 };
