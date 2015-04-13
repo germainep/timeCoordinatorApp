@@ -118,10 +118,10 @@ exports.inviteUsers = function(req, res) {
 
 exports.showInvitePanel = function(req, res) {
 	// TODO for email invite
-}
+};
 
 	// the view needs to see which 
-};
+
 exports.destroy = function(req, res) {
 	Meeting.findById(req.params.meeting_id, function(err, meeting) {
 		meeting.remove(function(err) {
