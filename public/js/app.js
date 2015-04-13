@@ -29,5 +29,10 @@ angular.module('TimeCoordinator', [
     url: '/meeting/create',
     templateUrl: '/partials/createmeeting.jade',
     controller: 'CreateMeetingController'
+  })
+  .state('signup', {
+    url: '/signup',
+    templateUrl: '/signup.jade', 
+    controller: 'SignupController'
   });
 }]);

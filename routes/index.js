@@ -21,7 +21,7 @@ router.get('/partials/:name', function(req, res) {
 // LOCAL strategy sign up 
 router.route('/signup')
 	.get(function (req, res) {
-		res.render('signup', {message: req.flash('signupMessage')});
+		res.render('signup.jade', {message: req.flash('signupMessage')});
 	})
 	.post(passport.authenticate('local-signup', {
 		successReturnToOrRedirect: 'profile',

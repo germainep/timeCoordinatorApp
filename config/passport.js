@@ -88,7 +88,7 @@ module.exports = function(passport) {
 
   passport.use(new TwitterStrategy(secrets.twitter, function(req, token, tokenSecret, profile, done) {
 		process.nextTick(function() {
-          if(!req.user) {
+      if(!req.user) {
             User.findOne({ 'twitter.id' : profile.id }, function (err, user) {
 				if (err)
 					return done(err);
@@ -109,7 +109,7 @@ module.exports = function(passport) {
 						return done(null, newUser);
 					});
 				}
-			});
+			   });
           } else{
             // user already exist pull the user from session
             var user = req.user;

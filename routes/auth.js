@@ -23,7 +23,7 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
 	failureRedirect: '/login'
 }));
 
-router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile']}));
+router.get('/google', passport.authenticate('google', { scope: ['email profile']}));
 router.get('/google/callback', passport.authenticate('google', {
 	successReturnToOrRedirect: '/profile',
 	failureRedirect: '/login'

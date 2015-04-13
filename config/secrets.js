@@ -26,9 +26,9 @@ module.exports = {
         passReqToCallback: true
 	},
   github: {
-    clientID: process.env.GITHUB_ID,
-    clientSecret: process.env.GITHUB_SECRET,
-    callbackURL: '/auth/github/callback',
-    passReqToCallback: true
+        clientID: process.env.GITHUB_ID,
+        clientSecret: process.env.GITHUB_SECRET,
+        callbackURL: '/auth/github/callback',
+        passReqToCallback: true
   }
 };
