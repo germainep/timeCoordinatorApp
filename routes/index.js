@@ -7,11 +7,16 @@ var users = require('../controllers/users');
 var meetings = require('../controllers/meetings');
 
 // Routes for index 
-
 router.route('/')
 	.get(function (req, res, next) {
 		res.render('login');
 	});
+
+//making the jade partials for angular views display
+router.get('/partials/:name', function(req, res) {
+  var name = req.params.name;
+  res.render('partials/' + name);
+});
 
 // LOCAL strategy sign up 
 router.route('/signup')
@@ -20,7 +25,7 @@ router.route('/signup')
 	})
 	.post(passport.authenticate('local-signup', {
 		successReturnToOrRedirect: 'profile',
-		failureRedirect: 'signup',
+		failureRedirect: '/signup',
 		failureFlash: true
 	}));
 
@@ -29,8 +34,8 @@ router.route('/login')
 		res.render('login', {title: 'Login', message: req.flash('loginMassage')});
 	})
 	.post(passport.authenticate('local-login', {
-		successReturnToOrRedirect: 'profile',
-		failureRedirect: 'login',
+		successReturnToOrRedirect: '/profile',
+		failureRedirect: '/login',
 		failureFlash: true
 	}));
 
@@ -59,5 +64,4 @@ function isLoggedIn(req, res, next) {
 	console.log("User is not logged in.");
 	res.redirect('/login');
 }
-
 module.exports = router;

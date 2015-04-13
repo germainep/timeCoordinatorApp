@@ -13,15 +13,11 @@ block content
       p: .p-container: span
         a(href='/signup') SignUp
         a(href="#") Forgot Password?
-      input(t)
-      div#login
-        p.userlogin: input(type="submit" name='go' value="User Log In")
-        p.facebooklog: input(style="background-color: #3B5998"type="submit" name="facebookgo" id="facebook" value="Log in with Facebook")
-        p.googlelog: a(style="background-color: #DD4B39" href='auth/google'): img(src='/img/Red-signin-md.png' alt='sign in with google')
-        p.yahoolog: a(href='/auth/twitter'): img(src='/img/twitter-link.png' alt='signin with twiter')
-        
-          
-        
-        a(style="background-color: #DD4B39" href='auth/google'): img(src='/img/Red-signin-md.png' alt='sign in with google')
-      
-  
+
+        p: input(type="submit" name='go' value="User Log In")
+        p.logonbtn#facebooklog: a(href='auth/facebook') Sign in with Facebook
+        p.logonbtn#googlelog: a(href='/auth/google') Sign in with Google
+        p.logonbtn#tweetlog: a(href='/auth/twitter'): img(src='/img/twitter-link.png' alt='signin with twiter')
+        p.logonbtn#githublog: a(href='/auth/github') Sign in with GitHub
+
+

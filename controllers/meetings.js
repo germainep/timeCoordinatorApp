@@ -112,7 +112,7 @@ exports.list = function(req, res) {
 			return res.send(404);
 		}
 		return res.status(200).json(meetings);
-	})
+	});
 };
 
 exports.inviteUsers = function(req, res) {
@@ -126,6 +126,7 @@ exports.showInvitePanel = function(req, res) {
 	// TODO for email invite
 };
 
+	// the view needs to see which 
 exports.destroy = function(req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
         return res.status(400).send("Invalid Meeting Id.");
