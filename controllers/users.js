@@ -7,13 +7,16 @@ var Meeting = require('../models/meeting');
 var _ = require('lodash');
 
 /**
- * Shows ONE User's information, and ONLY shows safe information 
+ * Shows ONE User's information, and ONLY shows safe information
  * 	(i.e. does not show passwords or sensitive data)
  */
 exports.read = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.user_id) === false) {
+        return res.status(400).send("Invalid User Id.");
+    }
 	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
-			return res.status(404);
+			return res.status(500);
 		}
 		if (!user) {
 			return res.status(404).send("This user does not exist.");
@@ -23,20 +26,23 @@ exports.read = function(req, res) {
 	});
 };
 
-// Can also use findByIdAndUpdate  ... 
+// Can also use findByIdAndUpdate  ...
 exports.update = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.user_id) === false) {
+        return res.status(400).send("Invalid User Id.");
+    }
 	// update the user object
 	console.log("hitting the put function");
 	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(500);
 		}
 		console.log(req.body);
 		user = _.assign(user, req.body);
 
 		user.save(function(err) {
 			if (err) {
-				return res.status(400);
+				return res.status(500);
 			} else {
 				res.json(user);
 			}
@@ -63,11 +69,14 @@ exports.editProfile = function(req, res) {
 // Adds a user to a meeting.
 
 exports.joinMeeting = function(req, res) {
+    if (mongoose.Types.ObjectId.isValid(req.params.user_id) === false) {
+        return res.status(400).send("Invalid User Id.");
+    }
 	// find a meeting
 	var meeting_id = req.params.meeting_id;
 	Meeting.findById(meeting_id).exec(function(err, meeting) {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(500);
 		}
 		console.log(meeting);
 		// add the user to that meeting participants array
