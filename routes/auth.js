@@ -29,6 +29,12 @@ router.get('/google/callback', passport.authenticate('google', {
 	failureRedirect: '/login'
 }));
 
+router.get('/github', passport.authenticate('github', {scope: 'user'}));
+router.get('/github/callback', passport.authenticate('github', {
+  successReturnToOrRedirect: '/profile',
+  failureRedirect: '/login'
+}))
+
 //==========================================
 //Authorization, Already Logged In/ Connect to current account
 //==========================================
@@ -59,6 +65,13 @@ router.get('/connect/google/callback',
   failureRedirect: '/'
 }));
 
+//github-----------
+router.get('/connect/github', passport.authorize('github', {scope: 'user'}));
+router.get('/connect/github/callback', passport.authorize('github', {
+  successReturnToOrRedirect: '/profile',
+  failureRedirect: '/'
+}));
+
 //=====================
 // Unlink connected account
 //=====================
@@ -80,10 +93,18 @@ router.get('/unlink/twitter', function(req, res) {
     res.redirect('/profile');
   });
 });
-
+//Google-------------
 router.get('/unlink/google', function(req, res) {
   var user = req.user;
   user.google.token = undefined;
+  user.save(function(err){
+    res.redirect('/profile');
+  });
+});
+//Github--------------
+router.get('/unlink/github', function(req, res) {
+  var user = req.user;
+  user.github.token = undefined;
   user.save(function(err){
     res.redirect('/profile');
   });

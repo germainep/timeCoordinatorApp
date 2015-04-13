@@ -4,6 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var GithubStrategy = require('passport-github').Strategy;
 // where application keys are stored
 var secrets = require('./secrets');
 var User = require('../models/user');
@@ -88,7 +89,6 @@ module.exports = function(passport) {
   passport.use(new TwitterStrategy(secrets.twitter, function(req, token, tokenSecret, profile, done) {
 		process.nextTick(function() {
           if(!req.user) {
-            console.log(req.user);
             User.findOne({ 'twitter.id' : profile.id }, function (err, user) {
 				if (err)
 					return done(err);
@@ -216,6 +216,51 @@ module.exports = function(passport) {
               });
             }
         });
-
+    }));
+  
+  //==================
+  //GitHub Login Strategy
+  //==================
+    passport.use(new GithubStrategy(secrets.github,
+       function(req, accessToken, refreshToken, profile, done) {
+        process.nextTick(function() {
+          if(!req.user){
+            User.findOne({'github.id' : profile.id }, function(err, user){
+              if(err)
+                return done(err);
+              if(user){
+                return done(null, user);
+              }else{
+               var newUser = new User();
+                newUser.github.id = profile.id;
+                newUser.github.token = accessToken;
+                newUser.github.displayName = profile.displayName;
+                newUser.github.username = profile.username;
+                newUser.github.profileUrl = profile.profileUrl;
+                newUser.github.email = profile.emails[0].value;
+                
+                newUser.save(function(err) {
+                  if(err)
+                    throw err;
+                  return done(null, user);
+                });
+              }
+            });
+          }else{
+            var user = req.user;
+            user.github.id = profile.id;
+            user.github.token = accessToken;
+            user.github.displayName = profile.displayName;
+            user.github.username = profile.username;
+            user.github.profileUrl = profile.profileUrl;
+            user.github.email = profile.emails[0].value;
+            
+            user.save(function(err){
+              if(err)
+                throw err;
+              return done(null, user)
+            });
+          }
+        });
     }));
 };

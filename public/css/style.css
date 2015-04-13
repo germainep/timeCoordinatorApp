@@ -130,6 +130,7 @@ input[type=checkbox] {
 .logonbtn {
   padding: 10px 10px;
   text-align: center;
+  text-decoration: none;
   width: 100%;
   border:1px solid rgba(0,0,0,0.4);
   text-shadow:0 -1px 0 rgba(0,0,0,0.4);
@@ -145,6 +146,8 @@ input[type=checkbox] {
 
 .logonbtn a{
   color: whitesmoke;
+  height: 100%;
+  width: 100%;
 }
 
 #tweetlog{
@@ -156,8 +159,8 @@ input[type=checkbox] {
 }
 
 #googlelog{
-  background: #D50F25;
-  color: aliceblue;
+  background: #4184f3;
+  color: white;
 }
 
 .forgotpassword {

@@ -8,10 +8,8 @@ block content
   .row
     .col-md-4.display-box(ng-controller='UserController')
         h3 Your Information
-        #{message}
         .inset
         a(href="profile/edit") Edit Profile
-        div(ui-view='createmeeting')
         h5 {{user.name}}
         p {{user.local.email}}
         p This will be the basic profile page for a user
@@ -33,9 +31,12 @@ block content
             a(href='auth/connect/twitter') connect twitter
         div
           h3 github
-          if user.github
+          if user.github.token
+            p display name #{user.github.displayName}
             p email #{user.github.email} 
-            p  name #{user.github.name}
+            p  name #{user.github.username}
+            p profile 
+              a #{user.github.profileUrl}
             a(href='auth/unlink/github') Unlink github
           else
             a(href='auth/connect/github') connect github

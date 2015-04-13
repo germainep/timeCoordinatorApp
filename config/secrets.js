@@ -24,5 +24,11 @@ module.exports = {
         clientSecret    : process.env.GOOGLE_SECRET,
         callbackURL     : '/auth/google/callback',
         passReqToCallback: true
-	}
+	},
+  github: {
+    clientID: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+    callbackURL: '/auth/github/callback',
+    passReqToCallback: true
+  }
 };
