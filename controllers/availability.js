@@ -39,6 +39,6 @@ exports.addAvail = function(req, res) {
 				}
 			});
 		}
-	})
-	// save the meeting
+	});
+	
 };
