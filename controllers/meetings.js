@@ -126,6 +126,7 @@ exports.showInvitePanel = function(req, res) {
 	// TODO for email invite
 };
 
+
 exports.destroy = function(req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
         return res.status(400).send("Invalid Meeting Id.");
