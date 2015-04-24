@@ -51,8 +51,7 @@ exports.update = function(req, res) {
 };
 
 exports.editProfile = function(req, res) {
-  User.findOne({_id: req.user})
-  .exec(function(err, user) {
+  User.findOne({_id: req.user}).exec(function(err, user) {
     user.set('name', req.body.name);
     user.set('local.email', req.body.email);
     user.save(function(err) {
@@ -74,18 +73,21 @@ exports.joinMeeting = function(req, res) {
     }
 	// find a meeting
 	var meeting_id = req.params.meeting_id;
-	Meeting.findById(meeting_id).exec(function(err, meeting) {
+	
+  Meeting.findById(meeting_id).exec(function(err, meeting) {
 		if (err) {
-			res.sendStatus(500);
+			return res.sendStatus(500);
 		}
 		console.log(meeting);
 		// add the user to that meeting participants array
 		meeting.participants.push(req.user._id);
 		meeting.save(function(err) {
 			if (err) {
-				res.sendStatus(500);
-			}
-			return;
+				return res.sendStatus(500);
+			} else {
+        return;
+      }
+			
 		});
 	});
 
@@ -94,7 +96,7 @@ exports.joinMeeting = function(req, res) {
 		user.meetings.push(meeting_id);
 		user.save(function(err) {
 			if (err) {
-				res.sendStatus(500);
+				return res.sendStatus(500);
 			}
 			var name = req.user.name;
 			res.json({message: name + " has successfully joined meeting "+ meeting_id});

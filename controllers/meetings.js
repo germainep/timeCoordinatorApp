@@ -53,7 +53,6 @@ exports.create = function(req, res) {
 		if (err) {
 			return res.status(500);
 		} else {
-
 			res.json(meeting);
 		}
 	});
@@ -87,16 +86,17 @@ exports.update = function(req, res) {
 		if (err) {
 			return res.send(500);
 		}
-          meeting.name = (req.body.name);
-          meeting.description= (req.body.description);
-          meeting.date = (req.body.date);
-		  meeting.lastUpdated = Date.now();
-		meeting.save(function(err) {
-			if (err) {
-				return res.status(500);
-			} else {
-				res.json(meeting);
-			}
+      meeting.name = (req.body.name);
+      meeting.description= (req.body.description);
+      meeting.date = (req.body.date);
+	    meeting.lastUpdated = Date.now();
+      
+  		meeting.save(function(err) {
+  			if (err) {
+  				return res.status(500);
+  			} else {
+  				res.json(meeting);
+  			}
 		});
 	});
 
