@@ -68,7 +68,7 @@ router.route('/users/:user_id')
 	// only shows one user, and sanitizes the user information
 	// cannot create or delete users 
 	.get(users.read)
-	.post(users.update);
+	.post(users.editProfile);
 
 
 module.exports = router;

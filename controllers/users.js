@@ -33,34 +33,44 @@ exports.read = function(req, res) {
 	});
 };
 
-// Can also use findByIdAndUpdate  ...
-exports.update = function(req, res) {
+
+
+/*exports.update = function(req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.user_id) === false) {
         return res.status(400).send("Invalid User Id.");
     }
 	// update the user object
-	console.log("hitting the put function");
 	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
 			res.sendStatus(500);
 		}
 		console.log(req.body);
-		user = _.assign(user, req.body);
+		user.name = req.body.name || user.name;
+    user.contact.push(req.body.email);
 
 		user.save(function(err) {
 			if (err) {
 				return res.status(500);
 			} else {
-				res.json(user);
+
+        var sanitizedUser = {
+          name: user.name,
+          meetings: user.meetings,
+          contact: user.contact
+        };
+
+				res.json(sanitizedUser);
 			}
 		});
 	});
-};
+};*/
 
 exports.editProfile = function(req, res) {
   User.findOne({_id: req.user}).exec(function(err, user) {
+    
     user.set('name', req.body.name);
-    user.set('local.email', req.body.email);
+    user.contact.email.push(req.body.email);
+
     user.save(function(err) {
       if(err){
         res.session.error =err;
