@@ -53,7 +53,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./config/passport')(passport);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
