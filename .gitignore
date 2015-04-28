@@ -4,3 +4,4 @@ nbproject/private/
 .DS_Store
 /bower_components
 .jshintrc
+gruntfile.js
