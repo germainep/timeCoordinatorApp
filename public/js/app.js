@@ -32,7 +32,6 @@ angular.module('TimeCoordinator', [
   $http.get('/loggedin').success(function(user){
     if (user !== '0'){
       deferred.resolve();
-      console.log(user);
       $rootScope.user = user;
     }else{
       $rootScope.message = "You need to log in";
@@ -87,4 +86,5 @@ angular.module('TimeCoordinator', [
       loggedin: checkLoggedIn
     }
   });
+  $locationProvider.html5Mode(true);
 }]);

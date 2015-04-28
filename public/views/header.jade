@@ -9,4 +9,4 @@ block navbar
         li: a(ui-sref="upcomingmeetings") Upcoming Meetings
         li: a(ui-sref="createmeetings") Create A Meeting
       if user
-        p.navbar-text.pull-right Signed in as #{user.name}
+        p.navbar-text.pull-right Signed in as {{user.name}}

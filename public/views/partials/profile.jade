@@ -1,7 +1,5 @@
-
-div
-  h2 Hello {{user.name}}!
-    a.pull-right(href="/logout") Log out
+div(style='height: 40px;')
+    a.pull-right(target='_self' href="logout") Log out
 .row
   .display-box
       h3 Your Information
@@ -27,7 +25,7 @@ div
         p email {{user.github.email}} 
         p  name {{user.github.username}}
         p profile 
-          a {{user.github.profileUrl}}
+          a(href='{{user.github.profileUrl}}') {{user.github.profileUrl}}
         a(href='auth/unlink/github') Unlink github
         a(href='auth/connect/github') connect github
       div.socialbox
