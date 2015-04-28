@@ -36,11 +36,12 @@ function isLoggedIn(req, res, next) {
 // one meeting
 router.route('/meetings/:meeting_id')
 	.get(meetings.read)
-	.put(meetings.update)
+	.post(meetings.update)
 	.delete(meetings.destroy);
 
 router.route('/meetings/:meeting_id/add-availability')
-	.put(avail.addAvail);
+	// TODO a GET route with a form
+	.post(avail.addAvail);
 
 router.route('/meetings/join/:meeting_id')
 	.post(users.joinMeeting);
@@ -67,7 +68,7 @@ router.route('/users/:user_id')
 	// only shows one user, and sanitizes the user information
 	// cannot create or delete users 
 	.get(users.read)
-	.post(users.update);
+	.post(users.editProfile);
 
 
 module.exports = router;

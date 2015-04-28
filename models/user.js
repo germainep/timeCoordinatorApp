@@ -10,6 +10,9 @@ var userSchema = mongoose.Schema({
 		email: String,
 		password: String
 	},
+  contact: {
+    email: [String]
+  },
 	facebook: {
 		id: String,
 		token: String,
@@ -28,14 +31,14 @@ var userSchema = mongoose.Schema({
 		email: String,
 		name: String
 	},
-    github: {
-      id: String,
-      token: String,
-      displayName: String,
-      username: String,
-      profileUrl: String,
-      email: String
-    }
+  github: {
+    id: String,
+    token: String,
+    displayName: String,
+    username: String,
+    profileUrl: String,
+    email: String
+  }
 });
 
 userSchema.methods.generateHash = function(password) {
