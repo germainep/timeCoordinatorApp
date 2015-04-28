@@ -19,11 +19,9 @@ router.get('/', function(req, res) {
 router.use(isLoggedIn);
 
 function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	console.log("User is not logged in.");
-	res.redirect('/login');
+	if (!req.isAuthenticated()) {
+		res.status(401);
+	} next();
 }
 
 // 		MEETINGS ROUTES

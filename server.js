@@ -18,10 +18,9 @@ var mongoStore = require('connect-mongo')(session);
 var port = process.env.PORT || 8080;
 
 // route files
-
-var routes = require('./routes/index');
 var auth = require('./routes/auth');
 var api = require('./routes/api');
+var routes = require('./routes/index');
 
 var app = express();
 
@@ -65,9 +64,9 @@ app.use(cookieParser());
 
 // static assets served from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', routes);
 app.use('/auth', auth);
 app.use('/api', api);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

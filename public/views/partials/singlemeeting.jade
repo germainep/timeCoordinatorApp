@@ -1,3 +1,5 @@
+div(style='height: 40px;')
+    a.pull-right(target='_self' href="logout") Log out
 div.display-box
   button.btn.pull-right(ng-click="toggleEditMode(singlemeeting)") {{editmode ? 'Disable Editing' : 'Enable Editing'}}
   h3(ng-model='singlemeeting.name' ng-attr-contenteditable='{{editmode}}') {{singlemeeting.name}}

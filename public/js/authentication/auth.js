@@ -3,8 +3,8 @@ angular.module('TimeCoordinator.Auth', [])
   $scope.user = {};
   $scope.login = function(){
     $http.post('/login', {
-      username: $scope.user.username,
-      password: $scope.user.password
+      email: $scope.user.local.email,
+      password: $scope.user.local.password
     })
     .success(function(user){
       $rootScope.message = 'Authentication Successful!';
