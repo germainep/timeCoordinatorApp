@@ -10,6 +10,7 @@ Properly configure controller
 var mongoose = require('mongoose');
 var	Meeting = require('../models/meeting');
 var User = require('../models/user');
+var Avail = require('../models/availability');
 var _ = require('lodash');
 var moment = require('moment-timezone');
 
@@ -52,7 +53,6 @@ exports.create = function(req, res) {
 		if (err) {
 			return res.status(500);
 		} else {
-
 			res.json(meeting);
 		}
 	});
@@ -72,7 +72,7 @@ exports.read = function(req, res) {
 		if (!meeting) {
 			return res.sendStatus(404).send("This meeting does not exist.");
 		} else {
-			res.json(meeting);
+			return res.json(meeting);
 		}
 	});
 };
@@ -86,16 +86,17 @@ exports.update = function(req, res) {
 		if (err) {
 			return res.send(500);
 		}
-          meeting.name = (req.body.name);
-          meeting.description= (req.body.description);
-          meeting.date = (req.body.date);
-		  meeting.lastUpdated = Date.now();
-		meeting.save(function(err) {
-			if (err) {
-				return res.status(500);
-			} else {
-				res.json(meeting);
-			}
+      meeting.name = (req.body.name);
+      meeting.description= (req.body.description);
+      meeting.date = (req.body.date);
+	    meeting.lastUpdated = Date.now();
+      
+  		meeting.save(function(err) {
+  			if (err) {
+  				return res.status(500);
+  			} else {
+  				res.json(meeting);
+  			}
 		});
 	});
 
@@ -136,7 +137,7 @@ exports.showInvitePanel = function(req, res) {
       //add a pending particpant number or icon
 };
 
-	// the view needs to see which 
+
 exports.destroy = function(req, res) {
     if (mongoose.Types.ObjectId.isValid(req.params.meeting_id) === false) {
         return res.status(400).send("Invalid Meeting Id.");
