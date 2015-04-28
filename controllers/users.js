@@ -32,7 +32,6 @@ exports.update = function(req, res) {
         return res.status(400).send("Invalid User Id.");
     }
 	// update the user object
-	console.log("hitting the put function");
 	User.findById(req.params.user_id).exec(function(err, user) {
 		if (err) {
 			res.sendStatus(500);

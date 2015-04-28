@@ -1,7 +1,6 @@
 /*
 Properly configure controller
 */
-/*jshint node: true*/
 
 'use strict';
 
