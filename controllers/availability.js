@@ -10,33 +10,6 @@ var Avail = require('../models/availability');
 var _ = require('lodash');
 var moment = require('moment-timezone');
 
-exports.read = function(req, res) {
-  Avail.findById(req.params.availability_id).exec(function(err, avail) {
-    if (err) {
-      console.log(err);
-      return res.status(500);
-    }
-    if (!avail) {
-      return res.status(404).send('This avail does not exist.');
-    } else {
-      res.json(avail);
-    }
-  });
-};
-
-exports.list = function(req, res){
-  Avail.find().exec(function(err, avail){
-    if(err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-    if(!avail) {
-      return res.status(404);
-    }
-    return res.status(200).json(avail);
-  });
-};
-
 exports.addAvail = function(req, res) {
 	// create a new object
 	var avail = new Avail();
