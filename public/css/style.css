@@ -23,7 +23,8 @@ body {
   color:white;
   font-size:1.6em;
   background:#333;
-  background: url('/img/map.jpg')
+  background: url('/img/time_zone_map.jpg');
+  background-size: cover;
 }
 
 h2{
@@ -109,14 +110,27 @@ input[type=time],
 textarea{
   color: white;
   width:100%;
-  padding:8px 5px;
   background:linear-gradient(#1f2124, #27292c);
   border:1px solid #222;
   box-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-radius:0.3em;
-  margin-bottom:20px;
+  margin-bottom:10px;
 }
-
+.well{
+  background:linear-gradient(#1f2124, #27292c);
+  border-radius:0.3em;
+  border:1px solid #444;
+}
+.input-group-btn button,
+timepicker,
+.btn{
+  background:linear-gradient(#1f2124, #27292c);
+  border:1px solid #222;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  border-radius:0.3em;
+  margin-bottom:10px;
+  color: white;
+}
 label[for=remember]{
   color:white;
   display:inline-block;
@@ -146,13 +160,11 @@ input[type=checkbox] {
 }
 
 .logonbtn a{
-  color: whitesmoke;
-  height: 100%;
-  width: 100%;
 }
 
 #tweetlog{
   background: #777;
+  
 }
 
 #facebooklog{
@@ -161,7 +173,6 @@ input[type=checkbox] {
 
 #googlelog{
   background: #4184f3;
-  color: white;
 }
 
 .forgotpassword {

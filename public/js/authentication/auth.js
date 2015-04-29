@@ -1,5 +1,5 @@
 angular.module('TimeCoordinator.Auth', [])
-.controller('AuthController', ['$scope', '$rootScope', '$location', '$http' ,'$rootScope', '$state', function($scope, $rootScope, $location, $http, $rootScope, $state){
+.controller('AuthController', ['$scope', '$rootScope', '$location', '$http' ,'$cookieStore', '$state', function($scope, $rootScope, $location, $http, $cookieStore, $state){
   $scope.user = {};
   $scope.login = function(){
     $http.post('/login', {
@@ -8,7 +8,8 @@ angular.module('TimeCoordinator.Auth', [])
     })
     .success(function(user){
       $rootScope.message = 'Authentication Successful!';
-      $state.go('profile');
+      $cookieStore.put(user);
+      $state.go('upcomingmeetings');
       
     })
     .error(function(){

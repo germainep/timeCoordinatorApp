@@ -35,7 +35,6 @@ angular.module('TimeCoordinator', [
       deferred.resolve();
       $rootScope.user = user;
     }else{
-      $rootScope.message = "You need to log in";
       deferred.reject();
       $state.go('login');
     }
