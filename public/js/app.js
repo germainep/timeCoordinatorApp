@@ -1,5 +1,6 @@
 angular.module('TimeCoordinator', [
   'ui.router', 
+  'ui.bootstrap',
   'ngResource',
   'ngCookies',
   'TimeCoordinator.Users',
