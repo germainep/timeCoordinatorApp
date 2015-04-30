@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  h1(style='color: darkred')= message
+  h2(style='color: darkred')= error.status
+  p(style='color: darkred') #{error.stack}

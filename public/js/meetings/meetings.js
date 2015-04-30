@@ -39,7 +39,7 @@ angular.module('TimeCoordinator.Meetings', [])
       if($scope.editmode === false){
       singlemeeting.$update(function(){
       });
-    };
+    }
   };
   
   //DatePicker settings

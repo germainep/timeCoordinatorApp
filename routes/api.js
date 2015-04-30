@@ -58,7 +58,7 @@ router.route('/users/:user_id')
 	// only shows one user, and sanitizes the user information
 	// cannot create or delete users 
 	.get(users.read)
-	.post(users.update);
+	.post(users.editProfile);
 
 //      AVAILABILITY ROUTES
 //============================
@@ -68,7 +68,6 @@ router.route('/users/:user_id')
 //	//.put(avail.update);
 
 router.route('/meetings/:meeting_id/availability')
-    .get(avail.list)
     .post(avail.addAvail);
 
 

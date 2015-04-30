@@ -1,11 +1,24 @@
 div(style='height: 40px;')
     a.pull-right(target='_self' href="logout") Log out
+    
 .row.display-box
       h3 Your Information
       .inset
-      a(href="profile/edit") Edit Profile
-      h5 {{user.name}}
-      p {{user.local.email}}
+        button.btn(ng-click='open()') Edit Profile
+      script(type="text/ng-template" id="myModalContent.html")
+        div.displaybox
+          .modal-header
+            h3.modal-title Connect Local
+          .modal-body
+            input.form-control(type='text' ng-model='user.name')
+            input.form-control(type='email' ng-model='user.local.email')
+          .modal-footer
+            button.btn(ng-click="ok()") Save
+            button.btn(ng-click="cancel()") Cancel
+  
+      div.socialbox.col-sm-12
+        h5 {{user.name}}
+        p {{user.local.email}}
       
       div.socialbox.col-sm-3
         h3.fa.fa-facebook acebook
@@ -42,4 +55,3 @@ div(style='height: 40px;')
           p  name {{user.google.name}}
           a(href='auth/unlink/google' target='_self') Unlink google
         a.btn.btn-default(ng-if='!(user.google)' href='auth/connect/google' target='_self') connect google
-

@@ -27,7 +27,7 @@ router.route('/signup')
 
 router.route('/login')
 	.post(passport.authenticate('local-login', {
-		successReturnToOrRedirect: '/profile',
+		successReturnToOrRedirect: '/meetings',
 		failureRedirect: '/login',
 		failureFlash: true
 }));

@@ -128,7 +128,6 @@ timepicker,
   border:1px solid #222;
   box-shadow: 0 1px 0 rgba(255,255,255,0.1);
   border-radius:0.3em;
-  margin-bottom:10px;
   color: white;
 }
 label[for=remember]{
@@ -241,6 +240,12 @@ label:hover ~ input[type=password] {
 }
 .display-box a{
   padding-right: 5px;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer{
+  background: #235;
 }
 
 /*

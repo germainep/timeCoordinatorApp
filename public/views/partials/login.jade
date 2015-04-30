@@ -1,7 +1,7 @@
 form.loginsignup(ng-submit='login()')
   h1 User Log In
   .inset
-    .alert-danger {{message}}
+    alert.alert-danger {{message}}
     p: label(for="email") Email Address
       input.form-control(type="text" name="email" ng-model='user.local.email')
     p: label(for="password") Password
