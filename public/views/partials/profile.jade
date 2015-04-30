@@ -10,15 +10,15 @@ div(style='height: 40px;')
           .modal-header
             h3.modal-title Connect Local
           .modal-body
-            input.form-control(type='text' ng-model='user.name')
-            input.form-control(type='email' ng-model='user.local.email')
+            input.form-control(type='text' name='name' ng-model='user.name')
+            input.form-control(type='email' name='email' ng-model='user.contact.email')
           .modal-footer
-            button.btn(ng-click="ok()") Save
+            button.btn(ng-click="addLocal(user)") Save
             button.btn(ng-click="cancel()") Cancel
   
       div.socialbox.col-sm-12
         h5 {{user.name}}
-        p {{user.local.email}}
+        p {{user.contact.email}}
       
       div.socialbox.col-sm-3
         h3.fa.fa-facebook acebook

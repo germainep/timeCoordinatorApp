@@ -12,7 +12,7 @@ angular.module('TimeCoordinator.Users', [])
     var modalInstance = $modal.open({
       templateUrl: 'myModalContent.html',
       controller: 'ModalInstanceCtrl',
-      size: 'lg',
+      size: 'sm',
       resolve: {
         user: function () {
           return $scope.user;
@@ -26,13 +26,11 @@ angular.module('TimeCoordinator.Users', [])
   };
 }])
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, user) {
-  
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, user, ActiveUser) {
   $scope.user = user;
-  $scope.addLocal = function () {
-    $modalInstance.close($scope.user.$update(function(){
-      
-    }));
+  
+  $scope.addLocal = function (user) {
+      $modalInstance.close(user.$post);
   };
 
   $scope.cancel = function () {

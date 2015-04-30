@@ -23,7 +23,7 @@ angular.module('TimeCoordinator', [
       },
       responseError: function(response) {
         if (response.status === 401)
-          $location.url('/#/login');
+          $location.url('/login');
         return $q.reject(response);
       }
     };
@@ -75,6 +75,9 @@ angular.module('TimeCoordinator', [
     controller: 'SingleMeetingController',
     resolve: {
       loggedin: checkLoggedIn
+    },
+    params: {
+      updated: false
     }
 })
   

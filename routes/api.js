@@ -65,10 +65,10 @@ router.route('/users/:user_id')
 
 //router.route('/meetings/:meeting_id/availability/:availability_id')
 //    .get(avail.read);
-//	//.put(avail.update);
+//	.put(avail.update);
 
 router.route('/meetings/:meeting_id/availability')
-    .post(avail.addAvail);
+    .post(avail.addAvail)
 
 
 module.exports = router;

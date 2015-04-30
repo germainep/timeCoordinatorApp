@@ -25,6 +25,8 @@ module.exports = function(config) {
       'public/js/users/services/users.services.js',
       'public/js/meetings/meetings.js',
       'public/js/meetings/services/meetings.services.js',
+      'public/js/availability/availability.js',
+      'public/js/availability/services/availability.services.js',
       'spec/**/*spec.js'
     ],
 

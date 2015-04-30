@@ -1,18 +1,17 @@
 form.loginsignup(ng-submit='login()')
   h1 User Log In
   .inset
-    alert.alert-danger {{message}}
-    p: label(for="email") Email Address
-      input.form-control(type="text" name="email" ng-model='user.local.email')
-    p: label(for="password") Password
-      input.form-control(type="password" name="password" ng-model='user.local.password')
-    p: label(for="remember") Remember Me 
-      input.form-control(type="checkbox" name="remember" id="remember")
-    p: .p-container: span
-      a(href='/signup') SignUp
-      a(href="#") Forgot Password?
+    form.form-signin(ng-submit='login(email, password)')
+      .alert.alert-danger(ng-show='invalidLogin') Invalid Email/Password
+      input.form-control(type='email' placeholder='Email' name='email' ng-model='credentials.email' ng-required='true')
+      input.form-control(type='password' placeholder='Password' name='password' ng-model='credentials.password' ng-required='true')
+      p: label(for="remember") Remember Me 
+        input(type="checkbox" name="remember" id="remember")
+      p: .p-container: span
+        a(href='/signup') SignUp
+        a(href="#") Forgot Password?
     div
-      p: button.btn.logonbtn(type='submit' ) Login
+      p: button.btn.logonbtn(type='submit' ) {{buttonText}}
       p: a.btn.logonbtn#facebooklog(target='_self' href='/auth/facebook') Sign in with Facebook
       p: a.btn.logonbtn#googlelog(target='_self' href='/auth/google') Sign in with Google
       p: a.btn.logonbtn#tweetlog(target='_self' href='/auth/twitter'): img(src='/img/twitter-link.png' alt='signin with twiter')

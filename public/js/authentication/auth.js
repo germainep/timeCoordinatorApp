@@ -1,20 +1,15 @@
 angular.module('TimeCoordinator.Auth', [])
-.controller('AuthController', ['$scope', '$rootScope', '$location', '$http' ,'$cookieStore', '$state', function($scope, $rootScope, $location, $http, $cookieStore, $state){
-  $scope.user = {};
-  $scope.login = function(){
-    $http.post('/login', {
-      email: $scope.user.local.email,
-      password: $scope.user.local.password
-    })
-    .success(function(user){
-      $rootScope.message = 'Authentication Successful!';
-      $cookieStore.put(user);
+.controller('AuthController', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService){
+  $scope.buttonText = 'Login';
+  
+  $scope.login = function() {
+    $scope.buttonText = 'Logging In...';
+    AuthService.login($scope.credentials.email, $scope.credentials.password).then(function(data) {
       $state.go('upcomingmeetings');
-      
-    })
-    .error(function(){
-      $rootScope.message = 'Authentication Failed!';
-      $state.go('login');
+    }, function(err) {
+      $scope.invalidLogin = true;
+    }).finally(function() {
+      $scope.buttonText = 'Login';
     });
   };
 }]);
