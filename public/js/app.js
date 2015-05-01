@@ -47,6 +47,12 @@ angular.module('TimeCoordinator', [
   templateUrl: 'partials/login.jade',
   controller: 'AuthController'
   })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'partials/signup.jade',
+    controller: 'AuthController'
+  })
     
   .state('profile',{
     url: '/profile',
