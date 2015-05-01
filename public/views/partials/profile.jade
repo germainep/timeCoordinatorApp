@@ -1,0 +1,57 @@
+div(style='height: 40px;')
+    a.pull-right(target='_self' href="logout") Log out
+    
+.row.display-box
+      h3 Your Information
+      .inset
+        button.btn(ng-click='open()') Edit Profile
+      script(type="text/ng-template" id="myModalContent.html")
+        div.displaybox
+          .modal-header
+            h3.modal-title Connect Local
+          .modal-body
+            input.form-control(type='text' name='name' ng-model='user.name')
+            input.form-control(type='email' name='email' ng-model='user.contact.email')
+          .modal-footer
+            button.btn(ng-click="addLocal(user)") Save
+            button.btn(ng-click="cancel()") Cancel
+  
+      div.socialbox.col-sm-12
+        h5 {{user.name}}
+        p {{user.contact.email}}
+      
+      div.socialbox.col-sm-3
+        h3.fa.fa-facebook acebook
+        div.well(ng-if='(user.facebook)')
+          p email {{user.facebook.email}}
+          p  name {{user.facebook.name}}
+          a(href='auth/unlink/facebook' target='_self') Unlink facebook
+        a.btn.btn-default(ng-if='!(user.facebook)' href='auth/connect/facebook' target='_self') connect facebook
+        
+    
+      div.socialbox.col-sm-3
+        h3.fa.fa-twitter  twitter
+        div.well(ng-if='(user.twitter)')
+          p DisplayName {{user.twitter.displayName}} 
+          p  UserName {{user.twitter.username}}
+          a(href='auth/unlink/twitter' target='_self') Unlink twitter
+        a.btn.btn-default(ng-if='!(user.twitter)' href='auth/connect/twitter' target='_self') connect twitter
+        
+      div.socialbox.col-sm-3
+        h3.fa.fa-github  github
+        div.well(ng-if='(user.github)')
+          p display name {{user.github.displayName}}
+          p email {{user.github.email}} 
+          p  name {{user.github.username}}
+          p profile 
+            a(href='{{user.github.profileUrl}}') {{user.github.profileUrl}}
+          a(href='auth/unlink/github' target='_self') Unlink github
+        a.btn.btn-default(ng-if='!(user.github)' target='_self' href='auth/connect/github') connect github
+        
+      div.socialbox.col-sm-3
+        h3.fa.fa-google-plus  google
+        div.well(ng-if='(user.google)')
+          p email {{user.google.email}} 
+          p  name {{user.google.name}}
+          a(href='auth/unlink/google' target='_self') Unlink google
+        a.btn.btn-default(ng-if='!(user.google)' href='auth/connect/google' target='_self') connect google

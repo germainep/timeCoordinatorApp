@@ -1,5 +1,3 @@
-/*jshint devel: true*/
-/*globals angular, window*/
 angular.module('TimeCoordinator.Meetings', [])
 //meeting controller
   .controller('MeetingController', ['$scope', '$state', '$stateParams', 'Meetings', 'popupService', function($scope, $state, $stateParams, Meetings, popupService) {
@@ -30,6 +28,8 @@ angular.module('TimeCoordinator.Meetings', [])
     $scope.singlemeeting = data;
     //allows the participants of each meeting to be listed
     $scope.participants = data.participants;
+    $scope.availabilitys = data.availability;
+    $scope.singlemeeting.date = new Date(data.date);
   });
   //activates inline editing
   $scope.editmode = false;
@@ -39,10 +39,16 @@ angular.module('TimeCoordinator.Meetings', [])
       if($scope.editmode === false){
       singlemeeting.$update(function(){
       });
-      } else {
-        //When editmode is true ngshow date input for the meeting date
-      }
-    };
+    }
+  };
+  
+  //DatePicker settings
+  $scope.minDate = new Date('MMM/dd/yyyy');
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
+  };
   
   
 }])
@@ -50,11 +56,21 @@ angular.module('TimeCoordinator.Meetings', [])
 .controller('CreateMeetingController', ['$scope', '$state', 'Meetings', function($scope, $state, Meetings){
   $scope.newmeeting = new Meetings();
   $scope.buttonText = 'Create';
+  $scope.newmeeting.date = new Date();
+  
+  //save meeting go back to upcomingmeeting view
   $scope.saveMeeting = function() {
     $scope.buttonText = 'Saving. . .';
     $scope.newmeeting.$save(function(){
       $state.go('upcomingmeetings');
     });
+  };
+  //DatePicker settings
+  $scope.minDate = new Date('MMM/dd/yyyy');
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
   };
 }])
 .controller('UpdateMeetingController', ['$scope', '']);

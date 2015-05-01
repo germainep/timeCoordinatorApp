@@ -1,0 +1,18 @@
+div(style='height: 40px;')
+    a.pull-right(target='_self' href="logout") Log out
+div.display-box.row
+  form(name='postForm' ng-submit='saveMeeting()' role='form')
+    label(for='name' ) Meeting Name
+    input.form-control(type='text' name='name' ng-model='newmeeting.name' ng-required='true' placeholder='Name')
+    label(for='description') Description
+    textarea(name='description' ng-model='newmeeting.description' ng-required='false' placeholder="Description")
+    
+    label(for='Date') Date
+    p.input-group
+      input.form-control(type='text' datepicker-popup='dd MMM yyyy' is-open='opened' ng-model='newmeeting.date'
+      min-date='minDate')
+      span.input-group-btn
+        button.btn.bnt-default(type='button' ng-click='open($event)'): i.glyphicon.glyphicon-calendar
+        
+    button.btn.btn-success.pull-right(type='submit') {{buttonText}}
+    

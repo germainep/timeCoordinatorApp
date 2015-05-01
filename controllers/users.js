@@ -21,14 +21,14 @@ exports.read = function(req, res) {
 		if (!user) {
 			return res.status(404).send("This user does not exist.");
 		} else {
-      var sanitizedUser = {
-        name: user.name,
-        meetings: user.meetings,
-        contacts: user.contacts
-      };
+//      var sanitizedUser = {
+//        name: user.name,
+//        meetings: user.meetings,
+//        contacts: user.contacts
+//      };
 
 
-			res.json(sanitizedUser);
+			res.json(user);
 		}
 	});
 };
@@ -77,7 +77,6 @@ exports.editProfile = function(req, res) {
       } else {
         req.session.msg = 'User Updated.';
       }
-      res.redirect('/profile/edit');
     });
   });
 };
