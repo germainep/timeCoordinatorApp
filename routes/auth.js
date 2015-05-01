@@ -7,7 +7,6 @@ var passport = require('passport');
 // LOCAL strategy
 
 
-
 // TWITTER strategy
 
 router.route('/twitter')

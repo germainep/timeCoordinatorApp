@@ -2,14 +2,11 @@ form.loginsignup(action="/signup" method="post")
     h1 User Sign Up
     .inset
       p: label(for='name') Name:
-        input(type='text' name='name' id='name')
+        input(type='text' name='name' id='name' required)
       p: label(for="email") Email Address:
-        input(type="text" name="email"  id="email")
+        input(type="text" name="email"  id="email" required)
       p: label(for="password") Password:
-        input(type="password" name="password" id="password")
+        input(type="password" name="password" id="password" required)
       p: label(for="remember")
-
-      p: a(href='/auth/auth/twitter')
-        img(src='/img/twitter-link.png')
 
     input(type="submit" value="Sign Up")

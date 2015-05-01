@@ -9,6 +9,16 @@ angular.module('TimeCoordinator.Auth')
       return auth.user;
     });
   };
+
+  auth.signUp = function(email, password) {
+    return $http.post('/signup', {email: email, password: password}).then(function(response, status) {
+      auth.user = response.data;
+      console.log(auth.user);
+      $cookieStore.put('user', auth.user);
+      return auth.user;
+    });
+  };
+
   auth.logout = function(){
     return $http.post('/logout').then(function(response){
       auth.user = undefined;

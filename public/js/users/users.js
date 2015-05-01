@@ -1,4 +1,5 @@
 angular.module('TimeCoordinator.Users', [])
+
 .controller('UserController', ['$scope', '$rootScope', '$modal', '$log', 'ActiveUser', function($scope, $rootScope, $modal, $log, ActiveUser) {
   var user_id = $rootScope.user;
   ActiveUser.get({user_id: user_id}, function(data){
