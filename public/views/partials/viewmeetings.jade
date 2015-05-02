@@ -1,6 +1,9 @@
 div(style='height: 40px;')
     a.pull-right(target='_self' href="logout") Log out
 div.display-box
+  .no-meetings(ng-show='!meetings.length')
+    h3 You have no upcoming meetings
+    p: a(ui-sref='createmeetings') Create A Meeting Now
   div(ng-repeat='meeting in meetings')
     div.row
       h3: a(ui-sref='singlemeeting({id: meeting._id})') {{meeting.name}}

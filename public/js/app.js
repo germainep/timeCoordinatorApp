@@ -54,7 +54,7 @@ angular.module('TimeCoordinator', [
   })
     
   .state('profile',{
-    url: '/profile',
+    url: '/profile/:id',
     templateUrl: 'partials/profile.jade',
     controller: 'UserController',
     resolve: {
@@ -94,5 +94,6 @@ angular.module('TimeCoordinator', [
       loggedin: checkLoggedIn
     }
   });
+  $urlRouterProvider.otherwise('upcomingmeetings');
   $locationProvider.html5Mode(true);
 }]);

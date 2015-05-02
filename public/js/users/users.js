@@ -1,11 +1,10 @@
 angular.module('TimeCoordinator.Users', [])
 
-.controller('UserController', ['$scope', '$rootScope', '$modal', '$log', 'ActiveUser', '$cookieStore', function($scope, $rootScope, $modal, $log, ActiveUser, $cookies) {
+.controller('UserController', ['$scope', '$rootScope', '$modal', '$log', 'ActiveUser', '$cookieStore', function($scope, $rootScope, $modal, $log, ActiveUser, $cookieStore) {
   //grab user id from cookieStore
-  var user_id = $cookies.get('user');
+  var user_id = $cookieStore.get('user');
   ActiveUser.get({user_id: user_id}, function(data){
     $scope.user = data;
-   
   });
   
   $scope.open = function () {
@@ -28,10 +27,11 @@ angular.module('TimeCoordinator.Users', [])
 }])
 
 .controller('ModalInstanceCtrl', function ($scope, $modalInstance, user) {
+  console.log(user);
   $scope.user = user;
-  
-  $scope.addLocal = function (user) {
-      $modalInstance.close(user.$post);
+  console.log($scope.user.$update());
+  $scope.addLocal = function () {
+      $modalInstance.close($scope.user.$update());
   };
 
   $scope.cancel = function () {
